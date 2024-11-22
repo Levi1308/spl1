@@ -14,19 +14,10 @@ Facility::Facility(const string &Fname, const string &FsettlementName, const Fac
 Facility::Facility(FacilityType &type, const string &settlementName)
     : FacilityType(type), settlementName(settlementName), status(FacilityStatus::UNDER_CONSTRUCTIONS), timeLeft(5) {}
 
-// Destructor of Facility
-Facility::~Facility(){};
 
 // Copy Constructor for Facility
 Facility::Facility(const Facility &other)
 :FacilityType(other), settlementName(other.settlementName), status(other.status), timeLeft(other.timeLeft){}
-
-
-
-// Assignment Operator for Facility
-Facility& Facility::operator=(const Facility &other){
-    return *this;
-}
 
 
 // Getter for settlement name
