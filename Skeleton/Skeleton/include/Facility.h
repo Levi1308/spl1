@@ -21,7 +21,7 @@ class FacilityType {
         FacilityType(const string &name, const FacilityCategory category, const int price, const int lifeQuality_score, const int economy_score, const int environment_score);
         //The rule of 3
         ~FacilityType() = default;
-        FacilityType &operator= (const FacilityType &other);
+        FacilityType & operator= (const FacilityType &other);
         FacilityType(const FacilityType &other) = default;
 
 
@@ -32,6 +32,7 @@ class FacilityType {
         int getEnvironmentScore() const;
         int getEconomyScore() const;
         FacilityCategory getCategory() const;
+        
 
     protected:
         const string name;
@@ -56,13 +57,14 @@ class Facility: public FacilityType {
 
 
          //other class methods 
+        Facility* clone();
         const string &getSettlementName() const;
         const int getTimeLeft() const;
         FacilityStatus step();
         void setStatus(FacilityStatus status);
         const FacilityStatus& getStatus() const;
         const string toString() const;
-
+        
     private:
         const string settlementName;
         FacilityStatus status;

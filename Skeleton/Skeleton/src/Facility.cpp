@@ -57,3 +57,7 @@ const FacilityStatus& Facility::getStatus() const {
 const string Facility::toString() const {
     return "Facility: " + name + ", " + settlementName + ", Status: " + (status == FacilityStatus::OPERATIONAL ? "Operational" : "Under Construction");
 }
+Facility* Facility::clone() {
+    return new Facility(*this);
+}
+
