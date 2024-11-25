@@ -7,6 +7,7 @@ class SelectionPolicy {
     public:
         virtual const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) = 0;
         virtual const string toString() const = 0;
+        virtual const string Nickname() const = 0;
         virtual SelectionPolicy* clone() const = 0;
         virtual ~SelectionPolicy() = default;
         virtual SelectionPolicy& operator= (const SelectionPolicy &other)=default;
@@ -18,6 +19,7 @@ class NaiveSelection: public SelectionPolicy {
         NaiveSelection(const NaiveSelection &other);
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
+        const string Nickname() const override;
         NaiveSelection *clone() const override;
         ~NaiveSelection() override = default;
         NaiveSelection& operator=(const NaiveSelection &other)=default;
@@ -32,6 +34,7 @@ class BalancedSelection: public SelectionPolicy {
         BalancedSelection(const BalancedSelection &other);
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
+        const string Nickname() const override;
         BalancedSelection *clone() const override;
         ~BalancedSelection() override = default;
         BalancedSelection& operator=(const BalancedSelection &other)=default;
@@ -47,6 +50,7 @@ class EconomySelection: public SelectionPolicy {
         EconomySelection(const EconomySelection &other);
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
+        const string Nickname() const override;
         EconomySelection *clone() const override;
         ~EconomySelection() override = default;
         EconomySelection& operator=(const EconomySelection &other)=default;
@@ -61,6 +65,7 @@ class SustainabilitySelection: public SelectionPolicy {
         SustainabilitySelection(const SustainabilitySelection &other);
         const FacilityType& selectFacility(const vector<FacilityType>& facilitiesOptions) override;
         const string toString() const override;
+        const string Nickname() const ;
         SustainabilitySelection *clone() const override;
         ~SustainabilitySelection() override = default;
         SustainabilitySelection& operator=(const SustainabilitySelection &other)=default;

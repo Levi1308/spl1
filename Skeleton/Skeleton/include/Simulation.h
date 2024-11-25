@@ -15,6 +15,8 @@ class Simulation {
         Simulation(const string &configFilePath);
         Simulation(const Simulation& other);
         Simulation& operator=(const Simulation& other);
+        Simulation(const Simulation&& other);
+        Simulation& operator=(const Simulation&& other);
         void start();
         void addPlan(const Settlement &settlement, SelectionPolicy *selectionPolicy);
         void addAction(BaseAction *action);
@@ -24,6 +26,7 @@ class Simulation {
         Settlement &getSettlement(const string &settlementName);
         Plan &getPlan(const int planID);
         void setPlanPolicy(int planId, const string& newPolicy);
+        
         void step();
         void close();
         void open();

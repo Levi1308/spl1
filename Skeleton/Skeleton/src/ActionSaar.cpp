@@ -1,16 +1,29 @@
 #include "Action.h"
 #include "iostream"
 
-
+ActionStatus BaseAction::getStatus() const {
+	return status;
+}
+void BaseAction::error(string errorMsg) {
+	status = ActionStatus::ERROR;
+	errorMsg = errorMsg;
+	std::cout << "ERROR: " + errorMsg << std::endl;
+}
+const string& BaseAction::getErrorMsg() const {
+	return errorMsg;
+}
 void AddSettlement::act(Simulation& simulation) {
-	Settlement* s=new Settlement(settlementName, settlementType);
-	if (simulation.addSettlement(s))
-		settlement = s;
+	if (!simulation.isSettlementExists(settlementName))
+	{
+		Settlement* s = new Settlement(settlementName, settlementType);
+		simulation.addSettlement(s);
+		complete();
+	}
 	else
 		std::cout << "Settlement already Exist" << std::endl;
 }
 const string AddSettlement::toString() const {
-	//return settlement.toString();
+	return "Adding Settlement";
 }
 AddSettlement* AddSettlement::clone() const{
 	return new AddSettlement(settlementName, settlementType);
@@ -19,7 +32,7 @@ AddSettlement::~AddSettlement() {
 
 }
 AddSettlement::AddSettlement(const string& settlementName, SettlementType settlementType)
-	:settlementName(settlementName), settlementType(settlementType), settlement(settlementName, settlementType)
+	:settlementName(settlementName), settlementType(settlementType)
 {
 	
 };
@@ -31,21 +44,32 @@ AddPlan::AddPlan(const string& settlementName, const string& selectionPolicy)
 
 }
 void AddPlan::act(Simulation& simulation) {
-	if (selectionPolicy == "nve") {
-		//simulation.addPlan
+	Settlement s = simulation.getSettlement(settlementName);
+	if (s.getName() != "")
+	{
+		if (selectionPolicy == "nve") {
+			simulation.addPlan(s, new NaiveSelection());
+			complete();
+		}
+		else if (selectionPolicy == "bal") {
+			simulation.addPlan(s, new BalancedSelection(0, 0, 0));
+
+			complete();
+		}
+		else if (selectionPolicy == "eco") {
+			simulation.addPlan(s, new EconomySelection());
+
+			complete();
+		}
+		else if (selectionPolicy == "env") {
+			simulation.addPlan(s, new SustainabilitySelection());
+			complete();
+		}
 	}
-	else if (selectionPolicy == "bal") {
-		// Handle the "bal" case
-	}
-	else if (selectionPolicy == "eco") {
-		// Handle the "eco" case
-	}
-	else if (selectionPolicy == "env") {
-		// Handle the "env" case
-	}
+	error("Cannot create this plan");
 };
 	const string AddPlan::toString() const {
-		return "Add plan was successful";
+		return "Add Plan";
 	};
 AddPlan* AddPlan::clone() const {
 	return new AddPlan(settlementName, selectionPolicy);
@@ -57,13 +81,20 @@ PrintPlanStatus::PrintPlanStatus(int planId)
 
 };
 void PrintPlanStatus::act(Simulation& simulation) {
-	simulation.getPlan(planId).printStatus();
-}
+	Plan p = simulation.getPlan(planId);
+	if (p.getId() != -1)
+	{
+		p.printStatus();
+		complete();
+	}
+	else
+		error("Plan doesn't exist");
+};
 PrintPlanStatus* PrintPlanStatus::clone() const {
 	return new PrintPlanStatus(planId);
 }
 const string PrintPlanStatus::toString() const {
-	return "PrintPlanStatus was successful";
+	return "Printing Status of a Plan";
 }
 ChangePlanPolicy::ChangePlanPolicy(const int planId, const string& newPolicy)
 	:planId(planId), newPolicy(newPolicy)
@@ -71,13 +102,19 @@ ChangePlanPolicy::ChangePlanPolicy(const int planId, const string& newPolicy)
 
 };
 void ChangePlanPolicy::act(Simulation& simulation) {
-	simulation.setPlanPolicy(planId, newPolicy);
+	Plan p = simulation.getPlan(planId);
+	if (p.getId() != -1 && p.CheckPolicy(newPolicy))
+	{
+		simulation.setPlanPolicy(planId, newPolicy);
+		complete();
+	}
+	error("Cannot change selection policy");
 };
 ChangePlanPolicy* ChangePlanPolicy::clone() const {
 	return new ChangePlanPolicy(planId, newPolicy);
 };
 const string ChangePlanPolicy::toString() const {
-	return "Success";
+	return "Changing Policy of a Plan";
 };
 
 RestoreSimulation::RestoreSimulation() {
@@ -90,5 +127,5 @@ RestoreSimulation* RestoreSimulation::clone() const {
 	return new RestoreSimulation();
 }
 const string RestoreSimulation::toString() const {
-
+	return "Restoring simulation";
 };
