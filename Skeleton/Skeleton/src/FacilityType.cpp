@@ -25,4 +25,5 @@ int FacilityType::getEnvironmentScore() const { return environment_score; }
 int FacilityType::getEconomyScore() const { return economy_score; }
 FacilityCategory FacilityType::getCategory() const { return category; }
 
-int sevenId(int j){}
+
+

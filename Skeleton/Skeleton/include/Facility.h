@@ -48,7 +48,7 @@ class Facility: public FacilityType {
 
     public:
         Facility(const string &name, const string &settlementName, const FacilityCategory category, const int price, const int lifeQuality_score, const int economy_score, const int environment_score);
-        Facility(FacilityType &type, const string &settlementName);
+        Facility(const FacilityType &type, const string &settlementName);
         //Ther rule of 3
         ~Facility()= default;
         Facility(const Facility &other);
