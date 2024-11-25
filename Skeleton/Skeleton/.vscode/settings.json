@@ -62,4 +62,6 @@
         "algorithm": "cpp"
     },
     "terminal.integrated.inheritEnv": false,
+    "disable-hardware-acceleration": true
+
 }

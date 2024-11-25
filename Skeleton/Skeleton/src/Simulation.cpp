@@ -14,13 +14,12 @@ Simulation::Simulation(const Simulation& other)
 	facilitiesOptions = other.facilitiesOptions;
 	for (BaseAction* b : other.actionsLog)
 	{
-		actionsLog.push_back(b);//אמור לעשות כאן העתקה עמוקב עם קלון לבדוק את זה
+		actionsLog.push_back(b);
 	}
 	for (Settlement* s : settlements)
 	{
 		settlements.push_back(s);
 	}
-
 };
 Simulation::~Simulation()
 {
@@ -33,7 +32,7 @@ Simulation::~Simulation()
 		delete s;
 	}
 };
-Simulation Simulation::operator=(const Simulation& other) {
+Simulation& Simulation::operator=(const Simulation& other) {
 	if (this != &other)
 	{
 		isRunning = other.isRunning;
@@ -48,11 +47,10 @@ Simulation Simulation::operator=(const Simulation& other) {
 		}
 	}
 	return *this;
-};
+}
 
 void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectionPolicy) {
 	Plan* p = new Plan(planCounter, settlement, selectionPolicy, facilitiesOptions);
-		//לבדוק מאיפה צריך להביא את הפסיליטי אופשין
 	plans.push_back(*p);
 	planCounter++;
 	//delete p;

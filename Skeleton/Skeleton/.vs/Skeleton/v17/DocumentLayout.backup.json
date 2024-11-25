@@ -3,32 +3,52 @@
   "WorkspaceRootPath": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Simulation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\Simulation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Simulation.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:include\\Simulation.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\ActionSaar.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\ActionSaar.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Action.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:include\\Action.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Plan.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\Plan.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Facility.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:include\\Facility.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Facility.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\Facility.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Settelment.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\Settelment.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Settlement.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:include\\Settlement.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Plan.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:include\\Plan.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Simulation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\Simulation.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Facility.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\Facility.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Action.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:include\\Action.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\FacilityType.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\FacilityType.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Auxiliary.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:include\\Auxiliary.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Facility.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:include\\Facility.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Auxiliary.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -46,11 +66,89 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Settlement.h",
+              "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Settlement.h",
+              "RelativeDocumentMoniker": "include\\Settlement.h",
+              "ToolTip": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Settlement.h",
+              "RelativeToolTip": "include\\Settlement.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-25T11:29:30.078Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FacilityType.cpp",
+              "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\FacilityType.cpp",
+              "RelativeDocumentMoniker": "src\\FacilityType.cpp",
+              "ToolTip": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\FacilityType.cpp",
+              "RelativeToolTip": "src\\FacilityType.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-25T11:25:53.176Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "Plan.h",
+              "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Plan.h",
+              "RelativeDocumentMoniker": "include\\Plan.h",
+              "ToolTip": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Plan.h",
+              "RelativeToolTip": "include\\Plan.h",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAABAAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-25T10:51:05.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Auxiliary.h",
+              "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Auxiliary.h",
+              "RelativeDocumentMoniker": "include\\Auxiliary.h",
+              "ToolTip": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Auxiliary.h",
+              "RelativeToolTip": "include\\Auxiliary.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-25T10:18:53.226Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ActionSaar.cpp",
+              "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\ActionSaar.cpp",
+              "RelativeDocumentMoniker": "src\\ActionSaar.cpp",
+              "ToolTip": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\ActionSaar.cpp",
+              "RelativeToolTip": "src\\ActionSaar.cpp",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAADsAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-25T10:18:17.873Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Simulation.h",
+              "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Simulation.h",
+              "RelativeDocumentMoniker": "include\\Simulation.h",
+              "ToolTip": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Simulation.h",
+              "RelativeToolTip": "include\\Simulation.h",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB8AAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-11-24T16:20:08.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "Auxiliary.cpp",
               "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Auxiliary.cpp",
               "RelativeDocumentMoniker": "src\\Auxiliary.cpp",
@@ -58,35 +156,38 @@
               "RelativeToolTip": "src\\Auxiliary.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-23T21:17:55.889Z"
+              "WhenOpened": "2024-11-23T21:17:55.889Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "Action.h",
               "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Action.h",
               "RelativeDocumentMoniker": "include\\Action.h",
               "ToolTip": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Action.h",
               "RelativeToolTip": "include\\Action.h",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAABIAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAewGMAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-23T21:16:56.407Z"
+              "WhenOpened": "2024-11-23T21:16:56.407Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "Simulation.cpp",
               "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Simulation.cpp",
               "RelativeDocumentMoniker": "src\\Simulation.cpp",
               "ToolTip": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Simulation.cpp",
               "RelativeToolTip": "src\\Simulation.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFAAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAEYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-23T21:10:34.16Z"
+              "WhenOpened": "2024-11-23T21:10:34.16Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 11,
               "Title": "Facility.h",
               "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Facility.h",
               "RelativeDocumentMoniker": "include\\Facility.h",
@@ -99,7 +200,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "Facility.cpp",
               "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Facility.cpp",
               "RelativeDocumentMoniker": "src\\Facility.cpp",
@@ -112,7 +213,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "CppProperties.json",
               "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\CppProperties.json",
               "RelativeDocumentMoniker": "CppProperties.json",
@@ -120,66 +221,33 @@
               "RelativeToolTip": "CppProperties.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-11-23T18:14:29.928Z"
+              "WhenOpened": "2024-11-23T18:14:29.928Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "Plan.cpp",
               "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Plan.cpp",
               "RelativeDocumentMoniker": "src\\Plan.cpp",
               "ToolTip": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Plan.cpp",
               "RelativeToolTip": "src\\Plan.cpp",
-              "ViewState": "AgIAAFcAAAAAAAAAAAAAwF0AAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAADgAAAAAAAAAAAAcwDoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-23T18:10:19.603Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Settelment.cpp",
               "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Settelment.cpp",
               "RelativeDocumentMoniker": "src\\Settelment.cpp",
               "ToolTip": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\src\\Settelment.cpp",
               "RelativeToolTip": "src\\Settelment.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACgAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABEAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-23T18:09:28.705Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "dac69436-8009-42ad-a003-6219e988f973",
-        "Display": 1,
-        "X": -6,
-        "Y": 320,
-        "Width": 1049,
-        "Height": 458,
-        "WindowState": 2
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Plan.h",
-              "DocumentMoniker": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Plan.h",
-              "RelativeDocumentMoniker": "include\\Plan.h",
-              "ToolTip": "C:\\Users\\shahaf\\Spl\\spl1\\Skeleton\\Skeleton\\include\\Plan.h",
-              "RelativeToolTip": "include\\Plan.h",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABUAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-23T18:10:25.553Z",
               "EditorCaption": ""
             }
           ]
