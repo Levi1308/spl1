@@ -11,11 +11,14 @@ Simulation::Simulation(const Simulation& other)
 	isRunning = other.isRunning;
 	planCounter = other.planCounter;
 	plans = other.plans;
-	settlements = other.settlements;
 	facilitiesOptions = other.facilitiesOptions;
 	for (BaseAction* b : other.actionsLog)
 	{
 		actionsLog.push_back(b);//אמור לעשות כאן העתקה עמוקב עם קלון לבדוק את זה
+	}
+	for (Settlement* s : settlements)
+	{
+		settlements.push_back(s);
 	}
 
 };
@@ -24,6 +27,10 @@ Simulation::~Simulation()
 	for (BaseAction* b : actionsLog)
 	{
 		delete b;
+	}
+	for (Settlement* s : settlements)
+	{
+		delete s;
 	}
 };
 Simulation Simulation::operator=(const Simulation& other) {
@@ -52,25 +59,29 @@ void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectio
 	//delete selectionPolicy;
 };
 
-bool Simulation::addSettlement(Settlement settlement) {
-	Settlement s(settlement);
-	settlements.push_back(s);
-	return true;
+bool Simulation::addSettlement(Settlement* settlement) {
+	Settlement* s(settlement);
+	if (isSettlementExists((*settlement).getName()))
+	{
+		settlements.push_back(s);
+		return true;
+	}
+	return false;
 };
 
 bool Simulation::isSettlementExists(const string& settlementName) {
-	for (Settlement s : settlements)
+	for (Settlement* s : settlements)
 	{
-		if (s.getName()._Equal(settlementName))
+		if (s->getName()._Equal(settlementName))
 			return true;
 	}
 	return false;
 };
 Settlement& Simulation::getSettlement(const string& settlementName) {
-	for (Settlement s : settlements)
+	for (Settlement* s : settlements)
 	{
-		if (s.getName()._Equal(settlementName))
-			return s;
+		if (s->getName()._Equal(settlementName))
+			return *s;
 	}
 };
 Plan& Simulation::getPlan(const int planID) {
@@ -79,5 +90,6 @@ Plan& Simulation::getPlan(const int planID) {
 		if (p.getId() == planID)
 			return p;
 	}
+	//if plan doesnt exist should return error
 }
 

@@ -30,6 +30,10 @@ const int Facility::getTimeLeft() const {
     return timeLeft;
 }
 
+const int Facility::getTimeLeft() const {
+    return timeLeft;
+}
+
 // Function to progress the status of the Facility
 FacilityStatus Facility::step() {
     // Logic for advancing the status of the facility
@@ -60,4 +64,5 @@ const string Facility::toString() const {
 Facility* Facility::clone() {
     return new Facility(*this);
 }
+
 

@@ -1,0 +1,80 @@
+#include "Action.h"
+#include "iostream"
+
+
+void AddSettlement::act(Simulation& simulation) {
+	Settlement* s=new Settlement(settlementName, settlementType);
+	if (simulation.addSettlement(s))
+		settlement = s;
+	else
+		std::cout << "Settlement already Exist" << std::endl;
+}
+const string AddSettlement::toString() const {
+	//return settlement.toString();
+}
+AddSettlement* AddSettlement::clone() const{
+	return new AddSettlement(settlementName, settlementType);
+}
+AddSettlement::~AddSettlement() {
+
+}
+AddSettlement::AddSettlement(const string& settlementName, SettlementType settlementType)
+	:settlementName(settlementName), settlementType(settlementType), settlement(settlementName, settlementType)
+{
+	
+};
+
+
+AddPlan::AddPlan(const string& settlementName, const string& selectionPolicy)
+	:settlementName(settlementName), selectionPolicy(selectionPolicy)
+{
+
+}
+void AddPlan::act(Simulation& simulation) {
+	if (selectionPolicy == "nve") {
+		//simulation.addPlan
+	}
+	else if (selectionPolicy == "bal") {
+		// Handle the "bal" case
+	}
+	else if (selectionPolicy == "eco") {
+		// Handle the "eco" case
+	}
+	else if (selectionPolicy == "env") {
+		// Handle the "env" case
+	}
+};
+	const string AddPlan::toString() const {
+		return "Add plan was successful";
+	};
+AddPlan* AddPlan::clone() const {
+	return new AddPlan(settlementName, selectionPolicy);
+}
+
+PrintPlanStatus::PrintPlanStatus(int planId)
+	:planId(planId)
+{
+
+};
+void PrintPlanStatus::act(Simulation& simulation) {
+	simulation.getPlan(planId).printStatus();
+}
+PrintPlanStatus* PrintPlanStatus::clone() const {
+	return new PrintPlanStatus(planId);
+}
+const string PrintPlanStatus::toString() const {
+	return "PrintPlanStatus was successful";
+}
+ChangePlanPolicy(const int planId, const string& newPolicy)
+	:pla
+{
+
+};
+void ChangePlanPolicy::act(Simulation& simulation) {
+
+};
+ChangePlanPolicy* ChangePlanPolicy::clone() const {
+
+};
+const string ChangePlanPolicy::toString() const {
+};

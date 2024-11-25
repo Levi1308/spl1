@@ -5,6 +5,7 @@ class Settlement {
 private:
     std::string name;
     SettlementType type;
+public:
     //Constructor
     Settlement::Settlement(const string& settelementName, SettlementType settelementType)
         :name(settelementName), type(settelementType) {
@@ -14,7 +15,7 @@ private:
         :name(other.name), type(other.type) {
     };
     Settlement::~Settlement() {}
-    const Settlement Settlement::operator=(const Settlement& other) {
+    const Settlement& Settlement::operator=(const Settlement& other) {
         if (this != &other)
         {
             name = other.name;

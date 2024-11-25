@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "Simulation.h"
+#include "Settlement.h"
 enum class SettlementType;
 enum class FacilityCategory;
 
@@ -59,6 +60,7 @@ class AddSettlement : public BaseAction {
     private:
         const string settlementName;
         const SettlementType settlementType;
+        Settlement* settlement;
 };
 
 
