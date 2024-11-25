@@ -8,11 +8,11 @@ using namespace std;
 
 // Constructor of Facility (inherits from FacilityType)
 Facility::Facility(const string &Fname, const string &FsettlementName, const FacilityCategory Fcategory, const int Fprice, const int FlifeQuality_score, const int Feconomy_score, const int Fenvironment_score)
-    : FacilityType(Fname, Fcategory, Fprice, FlifeQuality_score, Feconomy_score, Fenvironment_score), settlementName(FsettlementName), status(FacilityStatus::UNDER_CONSTRUCTIONS), timeLeft(5) {}
+    : FacilityType(Fname, Fcategory, Fprice, FlifeQuality_score, Feconomy_score, Fenvironment_score), settlementName(FsettlementName), status(FacilityStatus::UNDER_CONSTRUCTIONS) {}
 
 // Constructor for Facility using FacilityType
-Facility::Facility(FacilityType &type, const string &settlementName)
-    : FacilityType(type), settlementName(settlementName), status(FacilityStatus::UNDER_CONSTRUCTIONS), timeLeft(5) {}
+Facility::Facility(const FacilityType &type, const string &settlementName)
+    : FacilityType(type), settlementName(settlementName), status(FacilityStatus::UNDER_CONSTRUCTIONS){}
 
 
 // Copy Constructor for Facility

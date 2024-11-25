@@ -14,7 +14,7 @@ private:
         :name(other.name), type(other.type) {
     };
     Settlement::~Settlement() {}
-    const Settlement Settlement::operator=(const Settlement& other) {
+    Settlement Settlement::operator=(const Settlement& other) {
         if (this != &other)
         {
             name = other.name;
