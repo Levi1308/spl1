@@ -29,6 +29,9 @@ const FacilityType& NaiveSelection::selectFacility (const vector<FacilityType>& 
 lastSelectedIndex++;
 return facilitiesOptions[lastSelectedIndex];};
 
+const string NaiveSelection::Nickname() const {
+    return "nve";
+}
 
 
 
@@ -71,7 +74,9 @@ for (int i = 0; i < facilitiesOptions.size(); i++ ){
 return facilitiesOptions[IBselection];
 };
 
-
+const string BalancedSelection::Nickname() const {
+    return "bal";
+}
 
 //Constructor of EconomySelection
 EconomySelection:: EconomySelection()
@@ -99,6 +104,10 @@ for(int i = lastSelectedIndex + 1 ; i < facilitiesOptions.size(); i++){
 };
 
 
+const string EconomySelection::Nickname() const {
+    return "eco";
+}
+
 //Constructor of SustainabilitySelection
 SustainabilitySelection::SustainabilitySelection()
 :lastSelectedIndex(-1){}
@@ -113,7 +122,8 @@ return "Selected environment Facility Index: " + std::to_string(lastSelectedInde
 
 
 SustainabilitySelection* SustainabilitySelection:: clone() const {
-return new SustainabilitySelection(*this);}
+return new SustainabilitySelection(*this);
+}
 
 const FacilityType& SustainabilitySelection::selectFacility(const vector<FacilityType>& facilitiesOptions){
 for(int i = lastSelectedIndex + 1 ; i < facilitiesOptions.size(); i++){
@@ -123,4 +133,8 @@ for(int i = lastSelectedIndex + 1 ; i < facilitiesOptions.size(); i++){
     }    
 }
 
-};
+}
+const string SustainabilitySelection::Nickname() const {
+    return "env";
+}
+

@@ -15,10 +15,14 @@ class Plan {
         Plan(const int planId, const Settlement &settlement, SelectionPolicy *selectionPolicy, const vector<FacilityType> &facilityOptions);
         Plan(const Plan& other);
         Plan& operator= (const Plan& other);
+        Plan& Plan::operator=(const Plan&& other);
+        Plan(const Plan&& other);
+        Plan::Plan(int plan_id);
         const int getlifeQualityScore() const;
         const int getEconomyScore() const;
         const int getEnvironmentScore() const;
         const int getId() const;
+        bool CheckPolicy(string selectionPolicy);
         const string getStringStatus() const;
         void setSelectionPolicy(SelectionPolicy *selectionPolicy);
         void step();
@@ -30,8 +34,6 @@ class Plan {
         void setPlanStatus(PlanStatus p);
         PlanStatus getPlanStatus();
 
-
-         
     private:
         int plan_id;
         const Settlement &settlement;

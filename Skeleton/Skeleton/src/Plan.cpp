@@ -10,7 +10,7 @@ Plan::Plan(const int planId, const Settlement& settlement,
     status(PlanStatus::AVALIABLE), facilityOptions(facilityOptions),
     life_quality_score(0), economy_score(0), environment_score(0) {
 }
-
+//Rule of 5
 Plan::Plan(const Plan& other)
     : plan_id(other.plan_id), settlement(other.settlement),
     selectionPolicy(other.selectionPolicy->clone()),
@@ -51,7 +51,9 @@ Plan& Plan::operator=(const Plan& other) {
         plan_id = other.plan_id;
         //settlement = other.settlement;
         status = other.status;
+
         //facilityOptions = other.facilityOptions;
+        ///facilityOptions = other.facilityOptions;
         life_quality_score = other.life_quality_score;
         economy_score = other.economy_score;
         environment_score = other.environment_score;
@@ -71,9 +73,44 @@ Plan& Plan::operator=(const Plan& other) {
         }
     }
     return *this;
+};
+
+Plan& Plan::operator=(const Plan&& other) {
+    if (this != &other) {
+        delete selectionPolicy;
+        for (Facility* f : facilities) {
+            delete f;
+        }
+        for (Facility* f : underConstruction) {
+            delete f;
+        }
+        plan_id = other.plan_id;
+        //settlement = other.settlement;
+        status = other.status;
+        //facilityOptions = other.facilityOptions;
+        life_quality_score = other.life_quality_score;
+        economy_score = other.economy_score;
+        environment_score = other.environment_score;
+
+        // Copy selection policy
+        selectionPolicy = other.selectionPolicy ? other.selectionPolicy->clone();
+
+        // Deep copy facilities
+        facilities.clear();
+        for (Facility* f : other.facilities) {
+            facilities.push_back(f->clone());
+        }
+
+        underConstruction.clear();
+        for (Facility* f : other.underConstruction) {
+            underConstruction.push_back(f->clone());
+        }
+    }
+    return *this;
 }
+Plan::Plan(const Plan&& other) {
 
-
+}
 const int Plan::getEconomyScore() const {
     return economy_score;
 }
@@ -155,6 +192,7 @@ const int Plan::getId() const {
     return plan_id;
 }
 
+
 SelectionPolicy* Plan::getSelectionPolicy() const {
     return selectionPolicy;
 }
@@ -165,3 +203,20 @@ PlanStatus Plan::getPlanStatus() {
 void Plan::setPlanStatus(PlanStatus p) {
     status = p;
 }
+
+Plan::Plan(int plan_id)
+    : plan_id(plan_id),
+    settlement(settlement),
+    selectionPolicy(nullptr), 
+    status(PlanStatus::AVALIABLE),
+    facilityOptions(facilityOptions),
+    life_quality_score(0),
+    economy_score(0),
+    environment_score(0) {
+};
+bool Plan::CheckPolicy(string newpolicy) {
+    if (!(newpolicy == selectionPolicy->Nickname()))
+        return true;
+    return false;
+}
+

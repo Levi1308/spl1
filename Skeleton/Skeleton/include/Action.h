@@ -63,7 +63,6 @@ class AddSettlement : public BaseAction {
     private:
         const string settlementName;
         const SettlementType settlementType;
-        Settlement* settlement;
 };
 
 

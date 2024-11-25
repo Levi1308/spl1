@@ -6,6 +6,7 @@ Simulation::Simulation(const string& configFilePath)
 {
 
 };
+//Rule of 5
 Simulation::Simulation(const Simulation& other)
 {
 	isRunning = other.isRunning;
@@ -49,6 +50,37 @@ Simulation& Simulation::operator=(const Simulation& other) {
 	return *this;
 }
 
+Simulation::Simulation(const Simulation&& other) {
+	isRunning = other.isRunning;
+	planCounter = other.planCounter;
+	plans = other.plans;
+	facilitiesOptions = other.facilitiesOptions;
+	for (BaseAction* b : other.actionsLog)
+	{
+		actionsLog.push_back(b);
+	}
+	for (Settlement* s : settlements)
+	{
+		settlements.push_back(s);
+	}
+}
+
+Simulation& Simulation::operator=(const Simulation&& other) {
+	if (this != &other)
+	{
+		isRunning = other.isRunning;
+		planCounter = other.planCounter;
+		plans = other.plans;
+		settlements = other.settlements;
+		facilitiesOptions = other.facilitiesOptions;
+		actionsLog.clear();
+		for (BaseAction* b : other.actionsLog)
+		{
+			actionsLog.push_back(b);
+		}
+	}
+	return *this;
+}
 void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectionPolicy) {
 	Plan* p = new Plan(planCounter, settlement, selectionPolicy, facilitiesOptions);
 	plans.push_back(*p);
@@ -56,7 +88,6 @@ void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectio
 	//delete p;
 	//delete selectionPolicy;
 };
-
 bool Simulation::addSettlement(Settlement* settlement) {
 	Settlement* s(settlement);
 	if (isSettlementExists((*settlement).getName()))
@@ -81,6 +112,7 @@ Settlement& Simulation::getSettlement(const string& settlementName) {
 		if (s->getName()._Equal(settlementName))
 			return *s;
 	}
+	return Settlement("", SettlementType::CITY);
 };
 Plan& Simulation::getPlan(const int planID) {
 	for (Plan p : plans)
@@ -88,7 +120,7 @@ Plan& Simulation::getPlan(const int planID) {
 		if (p.getId() == planID)
 			return p;
 	}
-	//if plan doesnt exist should return error
+	return Plan(-1);
 }
 void Simulation::setPlanPolicy(int planId, const string& newPolicy) {
 	Plan& p = getPlan(planId);
