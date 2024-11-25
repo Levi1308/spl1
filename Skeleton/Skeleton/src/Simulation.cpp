@@ -137,4 +137,34 @@ void Simulation::setPlanPolicy(int planId, const string& newPolicy) {
 		p.setSelectionPolicy(new SustainabilitySelection());
 	}
 }
+bool Simulation::addFacility(FacilityType facility) {
+	if (std::find(facilitiesOptions.begin(), facilitiesOptions.end(), facility) != facilitiesOptions.end()) {
+		return false; // Facility already exists
+	}
+	facilitiesOptions.push_back(facility);
+	return true;
+}
+
+
+void Simulation::addAction(BaseAction* action) {
+	if (action != nullptr) {
+		actionsLog.push_back(action);
+	}
+}
+
+void Simulation::close() {
+	isRunning = false;
+}
+void Simulation::step() {
+	for (Plan p : plans) {
+		p.step();
+	}
+}
+
+void Simulation::open() {}
+
+void Simulation::start() {
+	isRunning = true;
+	planCounter = 0;
+}
 

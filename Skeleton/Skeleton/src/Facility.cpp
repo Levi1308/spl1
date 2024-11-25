@@ -30,9 +30,7 @@ const int Facility::getTimeLeft() const {
     return timeLeft;
 }
 
-const int Facility::getTimeLeft() const {
-    return timeLeft;
-}
+
 
 // Function to progress the status of the Facility
 FacilityStatus Facility::step() {

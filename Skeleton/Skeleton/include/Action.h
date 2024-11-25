@@ -32,6 +32,9 @@ class SimulateStep : public BaseAction {
 
     public:
         SimulateStep(const int numOfSteps);
+        SimulateStep(const SimulateStep& other);
+        ~SimulateStep() = default;
+        SimulateStep& operator=(const SimulateStep& other) = default;
         void act(Simulation &simulation) override;
         const string toString() const override;
         SimulateStep *clone() const override;

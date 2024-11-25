@@ -51,6 +51,8 @@ Plan& Plan::operator=(const Plan& other) {
         plan_id = other.plan_id;
         //settlement = other.settlement;
         status = other.status;
+
+        //facilityOptions = other.facilityOptions;
         ///facilityOptions = other.facilityOptions;
         life_quality_score = other.life_quality_score;
         economy_score = other.economy_score;
@@ -151,7 +153,24 @@ void Plan::printStatus() {
 }
 
 void Plan::step() {
-    // Implementation for advancing the state of the plan
+    if (getPlanStatus()==PlanStatus::AVALIABLE) {
+        while ( (int)settlement.getType() >= underConstruction.size()) {
+            Facility* F = new Facility(getSelectionPolicy()->selectFacility(facilityOptions), settlement.getName());
+            underConstruction.push_back(F);
+        }
+    }
+    for (auto it = underConstruction.begin(); it != underConstruction.end();) {
+        if ((*it)->step() == FacilityStatus::OPERATIONAL) {
+            addFacility(*it);
+            delete* it;  
+            it = underConstruction.erase(it); 
+        }
+        else {
+            it++;  
+        }
+    }
+    if (underConstruction.size() < (int)settlement.getType())
+        setPlanStatus(PlanStatus::AVALIABLE);
 }
 
 const std::string Plan::toString() const {
@@ -172,6 +191,19 @@ void Plan::addFacility(Facility* facility) {
 const int Plan::getId() const {
     return plan_id;
 }
+
+
+SelectionPolicy* Plan::getSelectionPolicy() const {
+    return selectionPolicy;
+}
+
+PlanStatus Plan::getPlanStatus() {
+    return status;
+}
+void Plan::setPlanStatus(PlanStatus p) {
+    status = p;
+}
+
 Plan::Plan(int plan_id)
     : plan_id(plan_id),
     settlement(settlement),
@@ -187,3 +219,4 @@ bool Plan::CheckPolicy(string newpolicy) {
         return true;
     return false;
 }
+
