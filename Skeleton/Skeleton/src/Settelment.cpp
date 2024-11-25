@@ -15,15 +15,14 @@ public:
         :name(other.name), type(other.type) {
     };
     Settlement::~Settlement() {}
-    const Settlement& Settlement::operator=(const Settlement& other) {
-        if (this != &other)
-        {
-            name = other.name;
-            type = other.type;
-
+    Settlement& Settlement::operator=(const Settlement& other) {
+        if (this != &other) { // Check for self-assignment
+            name = other.name; // Copy the name
+            type = other.type; // Copy the type
         }
-        return *this;
+        return *this; // Return a non-const reference to support chained assignments
     }
+
     const string& Settlement::getName() const { return name; }
 
     SettlementType Settlement::getType() const { return type; }

@@ -65,16 +65,30 @@ PrintPlanStatus* PrintPlanStatus::clone() const {
 const string PrintPlanStatus::toString() const {
 	return "PrintPlanStatus was successful";
 }
-ChangePlanPolicy(const int planId, const string& newPolicy)
-	:pla
+ChangePlanPolicy::ChangePlanPolicy(const int planId, const string& newPolicy)
+	:planId(planId), newPolicy(newPolicy)
 {
 
 };
 void ChangePlanPolicy::act(Simulation& simulation) {
-
+	simulation.setPlanPolicy(planId, newPolicy);
 };
 ChangePlanPolicy* ChangePlanPolicy::clone() const {
-
+	return new ChangePlanPolicy(planId, newPolicy);
 };
 const string ChangePlanPolicy::toString() const {
+	return "Success";
+};
+
+RestoreSimulation::RestoreSimulation() {
+
+}
+void RestoreSimulation::act(Simulation& simulation) {
+
+}
+RestoreSimulation* RestoreSimulation::clone() const {
+	return new RestoreSimulation();
+}
+const string RestoreSimulation::toString() const {
+
 };

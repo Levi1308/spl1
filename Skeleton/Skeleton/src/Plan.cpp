@@ -47,17 +47,19 @@ Plan& Plan::operator=(const Plan& other) {
             delete f;
         }
 
-        // Copy resources
+        // Copy simple data members
         plan_id = other.plan_id;
         settlement = other.settlement;
-        selectionPolicy = other.selectionPolicy->clone();
         status = other.status;
         facilityOptions = other.facilityOptions;
         life_quality_score = other.life_quality_score;
         economy_score = other.economy_score;
         environment_score = other.environment_score;
 
-        // Clone facilities
+        // Copy selection policy
+        selectionPolicy = other.selectionPolicy ? other.selectionPolicy->clone() : nullptr;
+
+        // Deep copy facilities
         facilities.clear();
         for (Facility* f : other.facilities) {
             facilities.push_back(f->clone());
@@ -70,6 +72,7 @@ Plan& Plan::operator=(const Plan& other) {
     }
     return *this;
 }
+
 
 const int Plan::getEconomyScore() const {
     return economy_score;

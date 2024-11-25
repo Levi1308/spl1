@@ -90,4 +90,19 @@ Plan& Simulation::getPlan(const int planID) {
 	}
 	//if plan doesnt exist should return error
 }
+void Simulation::setPlanPolicy(int planId, const string& newPolicy) {
+	Plan& p = getPlan(planId);
+	if (newPolicy == "nve") {
+		p.setSelectionPolicy(new NaiveSelection());
+	}
+	else if (newPolicy == "bal") {
+		p.setSelectionPolicy(new BalancedSelection(p.getlifeQualityScore(),p.getEconomyScore(),p.getEnvironmentScore()));
+	}
+	else if (newPolicy == "eco") {
+		p.setSelectionPolicy(new EconomySelection());
+	}
+	else if (newPolicy == "env") {
+		p.setSelectionPolicy(new SustainabilitySelection());
+	}
+}
 
