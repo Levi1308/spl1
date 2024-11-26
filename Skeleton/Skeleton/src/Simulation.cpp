@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include "Action.h"
+#include <iostream>
+#include <algorithm> 
 
 Simulation::Simulation(const string& configFilePath)
 	:isRunning(false), planCounter(0)
