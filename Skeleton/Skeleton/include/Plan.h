@@ -15,9 +15,9 @@ class Plan {
         Plan(const int planId, const Settlement &settlement, SelectionPolicy *selectionPolicy, const vector<FacilityType> &facilityOptions);
         Plan(const Plan& other);
         Plan& operator= (const Plan& other);
-        Plan& Plan::operator=( Plan&& other);
-        Plan( Plan&& other);
-        Plan::Plan(int plan_id);
+        Plan& operator=( Plan&& other);
+        Plan(Plan&& other);
+        Plan(int plan_id);
         const int getlifeQualityScore() const;
         const int getEconomyScore() const;
         const int getEnvironmentScore() const;

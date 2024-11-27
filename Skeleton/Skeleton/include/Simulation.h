@@ -26,8 +26,8 @@ public:
     Settlement& getSettlement(const string& settlementName);
     Plan& getPlan(const int planID);
     void setPlanPolicy(int planId, const string& newPolicy);
-    const vector<BaseAction*>& Simulation::getActionLog() const;
-    const vector<Plan>& Simulation::getPlans() const;
+    const vector<BaseAction*>& getActionLog() const;
+    const vector<Plan>& getPlans() const;
     void BackUp();
     void Restore();
     void step();
