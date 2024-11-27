@@ -16,6 +16,14 @@ FacilityType::FacilityType(const FacilityType &other)
     : name(other.name), category(other.category), price(other.price),
       lifeQuality_score(other.lifeQuality_score), economy_score(other.economy_score), environment_score(other.environment_score) {}
 
+bool FacilityType::operator==(const FacilityType& other) const {
+    return name == other.name && category == other.category &&
+           price == other.price && lifeQuality_score == other.lifeQuality_score &&
+           economy_score == other.economy_score && environment_score == other.environment_score;
+}
+
+
+
 
 // Getter methods for FacilityType
 const string &FacilityType::getName() const { return name; }
@@ -40,6 +48,9 @@ Facility::Facility(const FacilityType &type, const string &settlementName)
 // Copy Constructor for Facility
 Facility::Facility(const Facility &other)
 :FacilityType(other), settlementName(other.settlementName), status(other.status), timeLeft(other.timeLeft){}
+
+
+
 
 
 // Getter for settlement name

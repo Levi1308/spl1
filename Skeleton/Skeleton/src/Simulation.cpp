@@ -11,7 +11,7 @@
 #include <algorithm> 
 
 Simulation::Simulation(const string& configFilePath)
-    : isRunning(false), planCounter(0) {
+    : isRunning(false), planCounter(0), actionsLog(), plans(), settlements(), facilitiesOptions() {
 
     std::ifstream configFile(configFilePath);
     if (!configFile.is_open()) {
@@ -93,19 +93,16 @@ Simulation::Simulation(const Simulation&& other) noexcept
 	
 }
 Simulation::~Simulation() {
-	// Free dynamically allocated memory
 	for (BaseAction* b : actionsLog) {
 		delete b;
 	}
 	for (Settlement* s : settlements) {
 		delete s;
 	}
-	actionsLog.clear();
-    settlements.clear();
 
 }
 
-Simulation& Simulation::operator=(const Simulation& other) {
+Simulation& Simulation::operator=(const Simulation& other) noexcept {
 	if (this != &other) {
 		// Clean up existing resources
 		for (BaseAction* b : actionsLog) {
@@ -183,22 +180,24 @@ bool Simulation::isSettlementExists(const string& settlementName) {
 	return false;
 }
 
-Settlement& Simulation::getSettlement(const string& settlementName) {
-	for (Settlement* s : settlements) {
-		if (s->getName() == settlementName) {
-			return *s;
-		}
-	}
+Settlement& Simulation::getSettlement(const std::string& settlementName) {
+    for (Settlement* settlement : settlements) {
+        if (settlement->getName() == settlementName) {
+            return *settlement;
+        }
+    }
+    throw std::runtime_error("Settlement not found: " + settlementName);
 }
 
-Plan& Simulation::getPlan(const int planID) {
-	for (Plan& p : plans) { // Use reference to avoid copying
-		if (p.getId() == planID) {
-			return p;
-		}
-	}
-	//return Plan(-1);
+Plan& Simulation::getPlan(int planID) {
+    for (Plan& plan : plans) {
+        if (plan.getId() == planID) {
+            return plan;
+        }
+    }
+    throw std::runtime_error("Plan not found with ID: " + std::to_string(planID));
 }
+
 void Simulation::setPlanPolicy(int planId, const string& newPolicy) {
 	Plan& p = getPlan(planId);
 	if (newPolicy == "nve") {
