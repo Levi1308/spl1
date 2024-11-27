@@ -15,7 +15,7 @@ public:
     Simulation(const string& configFilePath);
     Simulation(const Simulation& other);
     Simulation& operator=(const Simulation& other);
-    Simulation(Simulation&& other);
+    Simulation(const Simulation&& other);
     Simulation& operator=(Simulation&& other);
     void start();
     void addPlan(const Settlement& settlement, SelectionPolicy* selectionPolicy);

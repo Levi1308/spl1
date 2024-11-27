@@ -39,7 +39,17 @@ Simulation::Simulation(const Simulation& other)
 		settlements.push_back(new Settlement(*s)); // Assuming Settlement has a copy constructor
 	}
 }
-
+Simulation::Simulation(const Simulation&& other) noexcept
+	: isRunning(other.isRunning),
+	planCounter(other.planCounter),
+	plans(std::move(other.plans)),
+	facilitiesOptions(std::move(other.facilitiesOptions)),
+	actionsLog(std::move(other.actionsLog)),
+	settlements(std::move(other.settlements)) {
+	
+	other.actionsLog.clear();
+	other.settlements.clear();
+}
 Simulation::~Simulation() {
 	// Free dynamically allocated memory
 	for (BaseAction* b : actionsLog) {
@@ -79,19 +89,20 @@ Simulation& Simulation::operator=(const Simulation& other) {
 	return *this;
 }
 
-Simulation::Simulation(Simulation&& other) noexcept
+Simulation::Simulation(Simulation&& other) 
 	: isRunning(other.isRunning),
 	planCounter(other.planCounter),
 	plans(std::move(other.plans)),
 	facilitiesOptions(std::move(other.facilitiesOptions)),
 	actionsLog(std::move(other.actionsLog)),
-	settlements(std::move(other.settlements)) {
+	settlements(std::move(other.settlements)) 
+	{
 	// Nullify pointers in the source object
 	other.actionsLog.clear();
 	other.settlements.clear();
-}
+	}
 
-Simulation& Simulation::operator=(Simulation&& other) noexcept {
+Simulation& Simulation::operator=(Simulation&& other) noexcept{
 	if (this != &other) {
 		// Clean up existing resources
 		for (BaseAction* b : actionsLog) {
@@ -158,6 +169,7 @@ Plan& Simulation::getPlan(const int planID) {
 			return p;
 		}
 	}
+	//return Plan(-1);
 }
 void Simulation::setPlanPolicy(int planId, const string& newPolicy) {
 	Plan& p = getPlan(planId);
