@@ -3,6 +3,7 @@
 #include <vector>
 #include "Simulation.h"
 #include "Settlement.h"
+#include "Auxiliary.h"
 enum class SettlementType;
 enum class FacilityCategory;
 
@@ -26,7 +27,8 @@ class BaseAction{
     private:
         string errorMsg;
         ActionStatus status;
-};
+        Auxiliary help;
+ };
 
 class SimulateStep : public BaseAction {
 

@@ -1,6 +1,6 @@
 #include "Action.h"
 #include "iostream"
-
+#include "Auxiliary.h"
 ActionStatus BaseAction::getStatus() const {
 	return status;
 }
@@ -116,12 +116,25 @@ ChangePlanPolicy* ChangePlanPolicy::clone() const {
 const string ChangePlanPolicy::toString() const {
 	return "Changing Policy of a Plan";
 };
+BackupSimulation::BackupSimulation() {
+	
+}
+
+void BackupSimulation::act(Simulation& simulation) {
+	simulation.BackUp();
+}
+BackupSimulation* BackupSimulationclone() {
+	return new BackupSimulation();
+}
+const string BackupSimulation::toString() const {
+	return "Backup Simulation";
+}
 
 RestoreSimulation::RestoreSimulation() {
-
+	
 }
 void RestoreSimulation::act(Simulation& simulation) {
-
+	simulation.Restore();
 }
 RestoreSimulation* RestoreSimulation::clone() const {
 	return new RestoreSimulation();

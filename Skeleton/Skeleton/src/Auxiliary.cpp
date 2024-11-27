@@ -1,4 +1,5 @@
 #include "Auxiliary.h"
+#include "Simulation.h"
 /*
 This is a 'static' method that receives a string(line) and returns a vector of the string's arguments.
 
@@ -18,3 +19,4 @@ std::vector<std::string> Auxiliary::parseArguments(const std::string& line) {
 
     return arguments;
 }
+

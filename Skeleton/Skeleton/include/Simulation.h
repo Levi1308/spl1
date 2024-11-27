@@ -11,34 +11,36 @@ class BaseAction;
 class SelectionPolicy;
 
 class Simulation {
-    public:
-        Simulation(const string &configFilePath);
-        Simulation(const Simulation& other);
-        Simulation& operator=(const Simulation& other);
-        Simulation( Simulation&& other);
-        Simulation& operator=( Simulation&& other);
-        void start();
-        void addPlan(const Settlement &settlement, SelectionPolicy *selectionPolicy);
-        void addAction(BaseAction *action);
-        bool addSettlement(Settlement* settlement);
-        bool addFacility(FacilityType facility);
-        bool isSettlementExists(const string &settlementName);
-        Settlement &getSettlement(const string &settlementName);
-        Plan &getPlan(const int planID);
-        void setPlanPolicy(int planId, const string& newPolicy);
-        const vector<BaseAction*>& Simulation::getActionLog() const;
-        const vector<Plan>& Simulation::getPlans() const;
-        
-        void step();
-        void close();
-        void open();
+public:
+    Simulation(const string& configFilePath);
+    Simulation(const Simulation& other);
+    Simulation& operator=(const Simulation& other);
+    Simulation(Simulation&& other);
+    Simulation& operator=(Simulation&& other);
+    void start();
+    void addPlan(const Settlement& settlement, SelectionPolicy* selectionPolicy);
+    void addAction(BaseAction* action);
+    bool addSettlement(Settlement* settlement);
+    bool addFacility(FacilityType facility);
+    bool isSettlementExists(const string& settlementName);
+    Settlement& getSettlement(const string& settlementName);
+    Plan& getPlan(const int planID);
+    void setPlanPolicy(int planId, const string& newPolicy);
+    const vector<BaseAction*>& Simulation::getActionLog() const;
+    const vector<Plan>& Simulation::getPlans() const;
+    void BackUp();
+    void Restore();
+    void step();
+    void close();
+    void open();
 
 
-    private:
-        bool isRunning;
-        int planCounter; //For assigning unique plan IDs
-        vector<BaseAction*> actionsLog;
-        vector<Plan> plans;
-        vector<Settlement*> settlements;
-        vector<FacilityType> facilitiesOptions;
+private:
+    bool isRunning;
+    int planCounter; //For assigning unique plan IDs
+    vector<BaseAction*> actionsLog;
+    vector<Plan> plans;
+    vector<Settlement*> settlements;
+    vector<FacilityType> facilitiesOptions;
 };
+extern Simulation* backup;

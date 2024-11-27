@@ -223,5 +223,9 @@ const vector<Plan>& Simulation::getPlans() const {
 	return plans;
 }
 
-
-
+void Simulation::BackUp() {
+	backup = new Simulation(*this);
+};
+void Simulation::Restore() {
+	*this = *backup;
+}
