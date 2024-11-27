@@ -93,43 +93,51 @@ Simulation::Simulation(const Simulation&& other) noexcept
 	
 }
 Simulation::~Simulation() {
-	for (BaseAction* b : actionsLog) {
-		delete b;
-	}
-	for (Settlement* s : settlements) {
-		delete s;
-	}
-
+    for (BaseAction* action : actionsLog) {
+        delete action;
+    }
+    for (Settlement* settlement : settlements) {
+        delete settlement;
+    }
 }
 
-Simulation& Simulation::operator=(const Simulation& other) noexcept {
-	if (this != &other) {
-		// Clean up existing resources
-		for (BaseAction* b : actionsLog) {
-			delete b;
-		}
-		actionsLog.clear();
-		for (Settlement* s : settlements) {
-			delete s;
-		}
-		settlements.clear();
 
-		// Copy resources
-		isRunning = other.isRunning;
-		planCounter = other.planCounter;
-		plans = other.plans;
-		facilitiesOptions = other.facilitiesOptions;
+Simulation& Simulation::operator=(const Simulation& other) {
+    if (this != &other) {
+        // Clean up existing resources
+        for (BaseAction* b : actionsLog) {
+            delete b;
+        }
+        actionsLog.clear();
+        for (Settlement* s : settlements) {
+            delete s;
+        }
+        settlements.clear();
+        facilitiesOptions.clear();
 
-		for (BaseAction* b : other.actionsLog) {
-			actionsLog.push_back(b->clone()); // Deep copy of actions
-		}
+        // Copy resources
+        isRunning = other.isRunning;
+        planCounter = other.planCounter;
+        plans = other.plans;
 
-		for (Settlement* s : other.settlements) {
-			settlements.push_back(new Settlement(*s)); // Deep copy of settlements
-		}
-	}
-	return *this;
+        // Deep copy of facilitiesOptions
+        for (const auto& F : other.facilitiesOptions) {
+            facilitiesOptions.push_back(std::make_unique<FacilityType>(*F));
+        }
+
+        // Deep copy of actionsLog
+        for (BaseAction* b : other.actionsLog) {
+            actionsLog.push_back(b->clone()); // Assuming clone() is defined
+        }
+
+        // Deep copy of settlements
+        for (Settlement* s : other.settlements) {
+            settlements.push_back(new Settlement(*s)); // Assuming Settlement has a copy constructor
+        }
+    }
+    return *this;
 }
+
 
 Simulation& Simulation::operator=(const Simulation&& other) noexcept {
     if (this != &other) {
@@ -217,7 +225,8 @@ bool Simulation::addFacility(FacilityType facility) {
 	if (std::find(facilitiesOptions.begin(), facilitiesOptions.end(), facility) != facilitiesOptions.end()) {
 		return false; // Facility already exists
 	}
-	facilitiesOptions.push_back(facility);
+	facilitiesOptions.push_back(std::make_unique<FacilityType>(facility));
+
 	return true;
 }
 

@@ -22,7 +22,7 @@ class FacilityType {
         ~FacilityType() = default;
         FacilityType(const FacilityType &other) = default;
         bool operator==(const FacilityType& other) const;
-        FacilityType& operator=(const FacilityType&) = delete;
+        
 
 
         //other class methods 
@@ -52,8 +52,7 @@ class Facility: public FacilityType {
         Facility(const FacilityType &type, const string &settlementName);
         ~Facility()= default;
         Facility(const Facility &other);
-        Facility &operator=(const Facility &other);
-
+        
 
          //other class methods 
         Facility* clone();

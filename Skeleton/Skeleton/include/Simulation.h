@@ -6,6 +6,8 @@
 #include "Settlement.h"
 using std::string;
 using std::vector;
+#include <memory>
+
 
 class BaseAction;
 class SelectionPolicy;
@@ -41,6 +43,6 @@ private:
     vector<BaseAction*> actionsLog;
     vector<Plan> plans;
     vector<Settlement*> settlements;
-    vector<FacilityType> facilitiesOptions;
+    std::vector<std::unique_ptr<FacilityType>> facilitiesOptions;
 };
 extern Simulation* backup;
