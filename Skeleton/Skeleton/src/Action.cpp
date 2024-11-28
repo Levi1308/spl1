@@ -212,7 +212,7 @@ PrintPlanStatus::PrintPlanStatus(int planId)
 
 };
 void PrintPlanStatus::act(Simulation& simulation) {
-	Plan* p = simulation.getPlan(planId);
+	Plan* p = new Plan(simulation.getPlan(planId));
 	if(p!=nullptr)
 	{
 		if (p->getId() != -1)
@@ -236,7 +236,7 @@ ChangePlanPolicy::ChangePlanPolicy(const int planId, const string& newPolicy)
 
 };
 void ChangePlanPolicy::act(Simulation& simulation) {
-	Plan* p = simulation.getPlan(planId);
+	Plan* p = new Plan(simulation.getPlan(planId));
 	if(p!=nullptr)
 	{
 	if (p->getId() != -1 && p->CheckPolicy(newPolicy))

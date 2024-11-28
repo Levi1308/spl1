@@ -266,7 +266,7 @@ Plan& Simulation::getPlan(const int planID) {
    return falsePlan;
 }
 
-void setPlanPolicy(int planId, const string& newPolicy){
+void Simulation::setPlanPolicy(int planId, const string& newPolicy){
 	Plan& p = getPlan(planId);
     
 	if (newPolicy == "nve") {
