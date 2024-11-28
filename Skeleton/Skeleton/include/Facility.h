@@ -19,10 +19,10 @@ enum class FacilityCategory {
 class FacilityType {
     public:
         FacilityType(const string &name, const FacilityCategory category, const int price, const int lifeQuality_score, const int economy_score, const int environment_score);
-        //The rule of 3
         ~FacilityType() = default;
-        FacilityType & operator= (const FacilityType &other)=default;
         FacilityType(const FacilityType &other) = default;
+        bool operator==(const FacilityType& other) const;
+        
 
 
         //other class methods 
@@ -50,11 +50,9 @@ class Facility: public FacilityType {
     public:
         Facility(const string &name, const string &settlementName, const FacilityCategory category, const int price, const int lifeQuality_score, const int economy_score, const int environment_score);
         Facility(const FacilityType &type, const string &settlementName);
-        //Ther rule of 3
         ~Facility()= default;
         Facility(const Facility &other);
-        Facility &operator=(const Facility &other)= default;
-
+        
 
          //other class methods 
         Facility* clone();
