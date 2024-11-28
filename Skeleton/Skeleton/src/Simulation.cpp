@@ -71,9 +71,8 @@ Simulation::Simulation(const string& configFilePath)
 Simulation::Simulation(const Simulation& other)
 	: isRunning(other.isRunning),
 	planCounter(other.planCounter),
-	plans(other.plans),
-	facilitiesOptions(other.facilitiesOptions) {
-	// Deep copy of actionsLog
+	plans(other.plans)
+    facilitiesOptions(other.facilitiesOptions){
 	for (BaseAction* b : other.actionsLog) {
 		actionsLog.push_back(b->clone()); // Assuming BaseAction has a virtual clone() method
 	}

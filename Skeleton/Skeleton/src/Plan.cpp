@@ -9,7 +9,11 @@ Plan::Plan(const int planId, const Settlement& settlement,
     selectionPolicy(selectionPolicy->clone()),
     status(PlanStatus::AVALIABLE), facilityOptions(facilityOptions),
     life_quality_score(0), economy_score(0), environment_score(0) {
-}
+}/*
+Plan::Plan()
+:settlement(),
+{
+};*/
 //Rule of 5
 Plan::Plan(const Plan& other)
     : plan_id(other.plan_id), settlement(other.settlement),
@@ -38,7 +42,6 @@ Plan::~Plan() {
 
 Plan& Plan::operator=(const Plan& other) {
     if (this != &other) {
-        // Clean up existing resources
         delete selectionPolicy;
         for (Facility* f : facilities) {
             delete f;
@@ -46,27 +49,16 @@ Plan& Plan::operator=(const Plan& other) {
         for (Facility* f : underConstruction) {
             delete f;
         }
-
-        // Copy simple data members
         plan_id = other.plan_id;
-        //settlement = other.settlement;
         status = other.status;
-
-        //facilityOptions = other.facilityOptions;
-        ///facilityOptions = other.facilityOptions;
         life_quality_score = other.life_quality_score;
         economy_score = other.economy_score;
         environment_score = other.environment_score;
-
-        // Copy selection policy
-        selectionPolicy = other.selectionPolicy ? other.selectionPolicy->clone() : nullptr;
-
-        // Deep copy facilities
+        selectionPolicy = other.selectionPolicy->clone();
         facilities.clear();
         for (Facility* f : other.facilities) {
             facilities.push_back(f->clone());
         }
-
         underConstruction.clear();
         for (Facility* f : other.underConstruction) {
             underConstruction.push_back(f->clone());
@@ -74,36 +66,6 @@ Plan& Plan::operator=(const Plan& other) {
     }
     return *this;
 };
-
-Plan& Plan::operator=(Plan&& other) noexcept {
-    if (this != &other) {
-        // Release existing resources
-        delete selectionPolicy;
-        for (Facility* f : facilities) {
-            delete f;
-        }
-        for (Facility* f : underConstruction) {
-            delete f;
-        }
-
-        // Transfer ownership of resources
-        plan_id = other.plan_id;
-        status = other.status;
-        life_quality_score = other.life_quality_score;
-        economy_score = other.economy_score;
-        environment_score = other.environment_score;
-
-        // Transfer ownership of pointers
-        selectionPolicy = other.selectionPolicy;
-        other.selectionPolicy = nullptr;
-
-        // Move facilities
-        facilities = std::move(other.facilities);
-        underConstruction = std::move(other.underConstruction);
-
-    }
-    return *this;
-}
 
 
 Plan::Plan( Plan&& other) noexcept
