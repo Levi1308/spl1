@@ -11,7 +11,8 @@
 #include <algorithm> 
 
 Simulation::Simulation(const string& configFilePath)
-    : isRunning(false), planCounter(0), actionsLog(), plans(), settlements(), facilitiesOptions() {
+    : isRunning(false), planCounter(0), actionsLog(), plans(), settlements(), facilitiesOptions()
+    ,falsePlan(-1),falseSettlement("",SettlementType::CITY) {
 
     std::ifstream configFile(configFilePath);
     if (!configFile.is_open()) {
@@ -63,7 +64,6 @@ Simulation::Simulation(const string& configFilePath)
             }
         }
     }
-
     configFile.close();
 }
 
@@ -92,7 +92,7 @@ Simulation::Simulation(const Simulation&& other) noexcept
 	settlements(std::move(other.settlements)) {
 	
 }
-Simulation::~Simulation() {
+Simulation::~Simulation(){
     for (BaseAction* action : actionsLog) {
         delete action;
     }
@@ -104,7 +104,6 @@ Simulation::~Simulation() {
 
 Simulation& Simulation::operator=(const Simulation& other) {
     if (this != &other) {
-        // Clean up existing resources
         for (BaseAction* b : actionsLog) {
             delete b;
         }
@@ -114,25 +113,17 @@ Simulation& Simulation::operator=(const Simulation& other) {
         }
         settlements.clear();
         facilitiesOptions.clear();
-
-        // Copy resources
         isRunning = other.isRunning;
         planCounter = other.planCounter;
         plans = other.plans;
-
-        // Deep copy of facilitiesOptions
         for (const auto& F : other.facilitiesOptions) {
-            facilitiesOptions.push_back(std::make_unique<FacilityType>(*F));
+            facilitiesOptions.push_back(F);
         }
-
-        // Deep copy of actionsLog
         for (BaseAction* b : other.actionsLog) {
-            actionsLog.push_back(b->clone()); // Assuming clone() is defined
+            actionsLog.push_back(b->clone()); 
         }
-
-        // Deep copy of settlements
         for (Settlement* s : other.settlements) {
-            settlements.push_back(new Settlement(*s)); // Assuming Settlement has a copy constructor
+            settlements.push_back(new Settlement(*s)); 
         }
     }
     return *this;
@@ -177,7 +168,7 @@ bool Simulation::addSettlement(Settlement* settlement) {
 		return true;
 	}
 	return false;
-};
+}
 
 bool Simulation::isSettlementExists(const string& settlementName) {
 	for (Settlement* s : settlements) {
@@ -194,53 +185,15 @@ Settlement& Simulation::getSettlement(const std::string& settlementName) {
             return *settlement;
         }
     }
-    throw std::runtime_error("Settlement not found: " + settlementName);
+   return falseSettlement;
 }
 
-<<<<<<< HEAD
-Plan* Simulation::getPlan(const int planID) {
-	
-	for (Plan p : plans) { 
-		if (p.getId() == planID) {
-			return &p;
-		}
-		
-	}
-	return nullptr;
-	
-=======
-Plan& Simulation::getPlan(int planID) {
-    for (Plan& plan : plans) {
-        if (plan.getId() == planID) {
-            return plan;
-        }
-    }
-    throw std::runtime_error("Plan not found with ID: " + std::to_string(planID));
->>>>>>> ec3628f6112029e6adc63102908fcd895726fa51
-}
-
-void Simulation::setPlanPolicy(int planId, const string& newPolicy) {
-	Plan* p = getPlan(planId);
-	if (newPolicy == "nve") {
-		p->setSelectionPolicy(new NaiveSelection());
-	}
-	else if (newPolicy == "bal") {
-		p->setSelectionPolicy(new BalancedSelection(p->getlifeQualityScore(),p->getEconomyScore(),p->getEnvironmentScore()));
-	}
-	else if (newPolicy == "eco") {
-		p->setSelectionPolicy(new EconomySelection());
-	}
-	else if (newPolicy == "env") {
-		p->setSelectionPolicy(new SustainabilitySelection());
-	}
-	
-}
 bool Simulation::addFacility(FacilityType facility) {
-	if (std::find(facilitiesOptions.begin(), facilitiesOptions.end(), facility) != facilitiesOptions.end()) {
-		return false; // Facility already exists
+	for(FacilityType facilitytype:facilitiesOptions) {
+        if(facilitytype==facility)
+		   return false;
 	}
-	facilitiesOptions.push_back(std::make_unique<FacilityType>(facility));
-
+	facilitiesOptions.push_back(facility);
 	return true;
 }
 
@@ -269,7 +222,6 @@ void Simulation::open() {
 
 void Simulation::start() {
 	open(); 
-
 	while (isRunning) {
 			std::string userInput;
 			std::getline(std::cin, userInput);
@@ -297,7 +249,31 @@ const vector<Plan>& Simulation::getPlans() const {
 
 void Simulation::BackUp() {
 	backup = new Simulation(*this);
-};
+}
 void Simulation::Restore() {
 	*this = *backup;
+}
+Plan& Simulation::getPlan(int planID) {
+    for (Plan& plan : plans) {
+        if (plan.getId() == planID) {
+            return plan;
+        }
+    }
+   return falsePlan;
+}
+
+void setPlanPolicy(int planId, const string& newPolicy){
+	Plan p = getPlan(planId);
+	if (newPolicy == "nve") {
+		p.setSelectionPolicy(new NaiveSelection());
+	}
+	else if (newPolicy == "bal") {
+		p.setSelectionPolicy(new BalancedSelection(p.getlifeQualityScore(),p.getEconomyScore(),p.getEnvironmentScore()));
+	}
+	else if (newPolicy == "eco") {
+		p.setSelectionPolicy(new EconomySelection());
+	}
+	else if (newPolicy == "env") {
+		p.setSelectionPolicy(new SustainabilitySelection());
+	}
 }
