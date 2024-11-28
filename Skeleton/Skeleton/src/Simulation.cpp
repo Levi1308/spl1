@@ -262,8 +262,10 @@ Plan& Simulation::getPlan(int planID) {
    return falsePlan;
 }
 
-void setPlanPolicy(int planId, const string& newPolicy){
-	Plan p = getPlan(planId);
+void Simulation::setPlanPolicy(int planId, const string& newPolicy){
+	Plan p= getPlan(planId);
+    if(p.getId()!=-1)
+    {
 	if (newPolicy == "nve") {
 		p.setSelectionPolicy(new NaiveSelection());
 	}
@@ -276,4 +278,5 @@ void setPlanPolicy(int planId, const string& newPolicy){
 	else if (newPolicy == "env") {
 		p.setSelectionPolicy(new SustainabilitySelection());
 	}
+    }
 }

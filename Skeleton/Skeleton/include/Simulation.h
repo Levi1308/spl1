@@ -16,6 +16,7 @@ class Simulation {
 public:
     Simulation(const string& configFilePath);
     Simulation(const Simulation& other);
+    ~Simulation();
     Simulation& operator=(const Simulation& other);
     Simulation(const Simulation&& other) noexcept;
     Simulation& operator=(const Simulation&& other) noexcept;
@@ -43,6 +44,8 @@ private:
     vector<BaseAction*> actionsLog;
     vector<Plan> plans;
     vector<Settlement*> settlements;
-    std::vector<std::unique_ptr<FacilityType>> facilitiesOptions;
+    std::vector<FacilityType> facilitiesOptions;
+    Plan falsePlan;
+    Settlement falseSettlement;
 };
 extern Simulation* backup;
