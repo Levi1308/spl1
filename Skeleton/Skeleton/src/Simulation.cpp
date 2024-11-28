@@ -72,26 +72,30 @@ Simulation::Simulation(const Simulation& other)
 	: isRunning(other.isRunning),
 	planCounter(other.planCounter),
 	plans(other.plans),
-	facilitiesOptions(other.facilitiesOptions) {
+	facilitiesOptions(other.facilitiesOptions) 
+    ,falsePlan(-1)
+    {
 	// Deep copy of actionsLog
 	for (BaseAction* b : other.actionsLog) {
-		actionsLog.push_back(b->clone()); // Assuming BaseAction has a virtual clone() method
+		actionsLog.push_back(b->clone());
 	}
 
 	// Deep copy of settlements
 	for (Settlement* s : other.settlements) {
-		settlements.push_back(new Settlement(*s)); // Assuming Settlement has a copy constructor
+		settlements.push_back(new Settlement(*s)); 
 	}
 }
-Simulation::Simulation(const Simulation&& other) noexcept
+Simulation::Simulation( Simulation&& other) noexcept
 	: isRunning(other.isRunning),
 	planCounter(other.planCounter),
 	plans(std::move(other.plans)),
 	facilitiesOptions(std::move(other.facilitiesOptions)),
 	actionsLog(std::move(other.actionsLog)),
-	settlements(std::move(other.settlements)) {
+	settlements(std::move(other.settlements)) 
+    ,falsePlan(-1)
+    {
 	
-}
+    }
 Simulation::~Simulation(){
     for (BaseAction* action : actionsLog) {
         delete action;
@@ -130,7 +134,7 @@ Simulation& Simulation::operator=(const Simulation& other) {
 }
 
 
-Simulation& Simulation::operator=(const Simulation&& other) noexcept {
+Simulation& Simulation::operator=( Simulation&& other) noexcept {
     if (this != &other) {
         // Clean up existing resources
         for (BaseAction* b : actionsLog) {
@@ -253,8 +257,8 @@ void Simulation::BackUp() {
 void Simulation::Restore() {
 	*this = *backup;
 }
-Plan& Simulation::getPlan(int planID) {
-    for (Plan& plan : plans) {
+Plan& Simulation::getPlan(const int planID) {
+    for ( Plan& plan : plans) {
         if (plan.getId() == planID) {
             return plan;
         }
@@ -263,7 +267,8 @@ Plan& Simulation::getPlan(int planID) {
 }
 
 void setPlanPolicy(int planId, const string& newPolicy){
-	Plan p = getPlan(planId);
+	Plan& p = getPlan(planId);
+    
 	if (newPolicy == "nve") {
 		p.setSelectionPolicy(new NaiveSelection());
 	}

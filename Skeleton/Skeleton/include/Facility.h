@@ -19,9 +19,10 @@ enum class FacilityCategory {
 class FacilityType {
     public:
         FacilityType(const string &name, const FacilityCategory category, const int price, const int lifeQuality_score, const int economy_score, const int environment_score);
-        ~FacilityType() = default;
+        virtual ~FacilityType() = default;
         FacilityType(const FacilityType &other) = default;
         bool operator==(const FacilityType& other) const;
+        FacilityType& operator=(const FacilityType& other) = delete; 
         
 
 
@@ -50,8 +51,9 @@ class Facility: public FacilityType {
     public:
         Facility(const string &name, const string &settlementName, const FacilityCategory category, const int price, const int lifeQuality_score, const int economy_score, const int environment_score);
         Facility(const FacilityType &type, const string &settlementName);
-        ~Facility()= default;
+        virtual ~Facility()= default;
         Facility(const Facility &other);
+        Facility& operator=(const Facility &other) = delete;
         
 
          //other class methods 

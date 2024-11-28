@@ -6,6 +6,8 @@
         :name(settelementName), type(settelementType) {
     };
 
+    
+
     Settlement::Settlement(const Settlement& other)
         :name(other.name), type(other.type) {
     };
