@@ -212,11 +212,14 @@ PrintPlanStatus::PrintPlanStatus(int planId)
 
 };
 void PrintPlanStatus::act(Simulation& simulation) {
-	Plan p = simulation.getPlan(planId);
-	if (p.getId() != -1)
+	Plan* p = simulation.getPlan(planId);
+	if(p!=nullptr)
 	{
-		p.printStatus();
+		if (p->getId() != -1)
+		{
+		p->printStatus();
 		complete();
+		}
 	}
 	else
 		error("Plan doesn't exist");
@@ -233,13 +236,18 @@ ChangePlanPolicy::ChangePlanPolicy(const int planId, const string& newPolicy)
 
 };
 void ChangePlanPolicy::act(Simulation& simulation) {
-	Plan p = simulation.getPlan(planId);
-	if (p.getId() != -1 && p.CheckPolicy(newPolicy))
+	Plan* p = simulation.getPlan(planId);
+	if(p!=nullptr)
+	{
+	if (p->getId() != -1 && p->CheckPolicy(newPolicy))
 	{
 		simulation.setPlanPolicy(planId, newPolicy);
 		complete();
+		//delete p;
+	}
 	}
 	error("Cannot change selection policy");
+	delete p;
 };
 ChangePlanPolicy* ChangePlanPolicy::clone() const {
 	return new ChangePlanPolicy(planId, newPolicy);
@@ -273,12 +281,3 @@ RestoreSimulation* RestoreSimulation::clone() const {
 const string RestoreSimulation::toString() const {
 	return "Restoring simulation";
 };
-
-
-
-
-
-
-
-
-

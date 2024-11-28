@@ -163,28 +163,32 @@ Settlement& Simulation::getSettlement(const string& settlementName) {
 	}
 }
 
-Plan& Simulation::getPlan(const int planID) {
-	for (Plan& p : plans) { // Use reference to avoid copying
+Plan* Simulation::getPlan(const int planID) {
+	
+	for (Plan p : plans) { 
 		if (p.getId() == planID) {
-			return p;
+			return &p;
 		}
+		
 	}
-	//return Plan(-1);
+	return nullptr;
+	
 }
 void Simulation::setPlanPolicy(int planId, const string& newPolicy) {
-	Plan& p = getPlan(planId);
+	Plan* p = getPlan(planId);
 	if (newPolicy == "nve") {
-		p.setSelectionPolicy(new NaiveSelection());
+		p->setSelectionPolicy(new NaiveSelection());
 	}
 	else if (newPolicy == "bal") {
-		p.setSelectionPolicy(new BalancedSelection(p.getlifeQualityScore(),p.getEconomyScore(),p.getEnvironmentScore()));
+		p->setSelectionPolicy(new BalancedSelection(p->getlifeQualityScore(),p->getEconomyScore(),p->getEnvironmentScore()));
 	}
 	else if (newPolicy == "eco") {
-		p.setSelectionPolicy(new EconomySelection());
+		p->setSelectionPolicy(new EconomySelection());
 	}
 	else if (newPolicy == "env") {
-		p.setSelectionPolicy(new SustainabilitySelection());
+		p->setSelectionPolicy(new SustainabilitySelection());
 	}
+	
 }
 bool Simulation::addFacility(FacilityType facility) {
 	if (std::find(facilitiesOptions.begin(), facilitiesOptions.end(), facility) != facilitiesOptions.end()) {
