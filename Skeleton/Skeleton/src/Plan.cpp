@@ -236,3 +236,26 @@ bool Plan::CheckPolicy(string newpolicy) {
     return false;
 }
 
+const int Plan::getUnderunderConstructionLQS() const{
+    int LQS = 0;
+    for(Facility* F: underConstruction){
+        LQS = LQS +F->getLifeQualityScore();
+    }
+    return LQS;
+}
+
+const int Plan::getUnderunderConstructionECS() const{
+    int ECS = 0;
+    for(Facility* F: underConstruction){
+        ECS = ECS + F->getEconomyScore();
+    }
+    return ECS;
+}
+
+const int Plan::getUnderunderConstructionENS() const{
+    int ENS = 0;
+    for(Facility* F: underConstruction){
+        ENS = ENS + F->getEnvironmentScore();
+    }
+    return ENS;
+}

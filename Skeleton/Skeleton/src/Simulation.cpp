@@ -273,7 +273,7 @@ void Simulation::setPlanPolicy(int planId, const string& newPolicy){
 		p.setSelectionPolicy(new NaiveSelection());
 	}
 	else if (newPolicy == "bal") {
-		p.setSelectionPolicy(new BalancedSelection(p.getlifeQualityScore(),p.getEconomyScore(),p.getEnvironmentScore()));
+		p.setSelectionPolicy(new BalancedSelection(p.getlifeQualityScore() + p.getUnderunderConstructionLQS() ,p.getEconomyScore() + p.getUnderunderConstructionECS(),p.getEnvironmentScore()+ p.getUnderunderConstructionENS()));
 	}
 	else if (newPolicy == "eco") {
 		p.setSelectionPolicy(new EconomySelection());

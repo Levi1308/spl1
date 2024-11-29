@@ -33,6 +33,9 @@ class Plan {
         SelectionPolicy* getSelectionPolicy() const;
         void setPlanStatus(PlanStatus p);
         PlanStatus getPlanStatus();
+        const int getUnderunderConstructionLQS() const;
+        const int getUnderunderConstructionECS() const;
+        const int getUnderunderConstructionENS() const;
 
     private:
         int plan_id;
