@@ -17,7 +17,7 @@ Plan::Plan(const Plan& other)
     status(other.status), facilityOptions(other.facilityOptions),
     life_quality_score(other.life_quality_score),
     economy_score(other.economy_score),
-    environment_score(other.environment_score) {
+    environment_score(other.environment_score), facilities(), underConstruction() {
     for (Facility* f : other.facilities) {
         facilities.push_back(f->clone());
     }

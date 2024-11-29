@@ -33,3 +33,8 @@ compile:
 clean:
 	@echo "Cleaning bin files"
 	rm -rf bin/*
+
+cleanObjAndrum:
+	@rm -f *.o
+	@clear
+	valgrind --leak-check=full --show-reachable=yes ./bin/main
