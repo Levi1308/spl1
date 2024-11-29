@@ -9,7 +9,7 @@
 #include <iostream>
 
 
-
+class Simulation;
 
 BaseAction::BaseAction()
 :errorMsg(""),status()
@@ -59,6 +59,7 @@ SimulateStep* SimulateStep::clone() const {
 
 AddFacility::AddFacility(const string& AfacilityName, const FacilityCategory AfacilityCategory, const int Aprice, const int AlifeQualityScore, const int AeconomyScore, const int AenvironmentScore)
     :facilityName(AfacilityName), facilityCategory(AfacilityCategory), price(Aprice), lifeQualityScore(AlifeQualityScore), economyScore(AeconomyScore), environmentScore(AenvironmentScore){}
+
 
 void AddFacility::act(Simulation& simulation) {
     FacilityType F(facilityName, facilityCategory, price, lifeQualityScore, economyScore, environmentScore);
@@ -120,8 +121,9 @@ const string AddFacility::toString() const {
         for (Plan p : plans) {
             std::cout << p.toString() << std::endl;
         }
-
         simulation.close();
+        simulation.~Simulation();
+        complete();
     }
     Close* Close::clone() const {
         return new Close();
@@ -204,7 +206,7 @@ PrintPlanStatus::PrintPlanStatus(int planId)
 };
 void PrintPlanStatus::act(Simulation& simulation) {
 	Plan* p = new Plan(simulation.getPlan(planId));
-	if(p->getId()!=-1)
+	if(p!=nullptr)
 	{
 		if (p->getId() != -1)
 		{
@@ -252,7 +254,6 @@ BackupSimulation::BackupSimulation() {
 
 void BackupSimulation::act(Simulation& simulation) {
 	simulation.BackUp();
-	complete();
 }
 BackupSimulation* BackupSimulation::clone() const{
 	return new BackupSimulation();
@@ -266,7 +267,6 @@ RestoreSimulation::RestoreSimulation() {
 }
 void RestoreSimulation::act(Simulation& simulation) {
 	simulation.Restore();
-	
 }
 RestoreSimulation* RestoreSimulation::clone() const {
 	return new RestoreSimulation();

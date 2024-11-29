@@ -209,7 +209,6 @@ void Simulation::addAction(BaseAction* action) {
 void Simulation::close() {
 	std::cout << "The simulation has finished" << std::endl;
 	isRunning = false;
-
 }
 void Simulation::step() {
 	for (Plan& p : plans) {
