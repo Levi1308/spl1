@@ -11,6 +11,7 @@ class SelectionPolicy {
         virtual SelectionPolicy* clone() const = 0;
         virtual ~SelectionPolicy() = default;
         virtual SelectionPolicy& operator= (const SelectionPolicy &other)=default;
+        int CloseDistance(int x,int y,int z);
 };
 
 class NaiveSelection: public SelectionPolicy {
@@ -23,7 +24,6 @@ class NaiveSelection: public SelectionPolicy {
         NaiveSelection *clone() const override;
         ~NaiveSelection() override = default;
         NaiveSelection& operator=(const NaiveSelection &other)=default;
-
     private:
         int lastSelectedIndex;
 };

@@ -27,7 +27,6 @@ class BaseAction{
     private:
         string errorMsg;
         ActionStatus status;
-        Auxiliary help;
  };
 
 class SimulateStep : public BaseAction {

@@ -9,11 +9,7 @@ Plan::Plan(const int planId, const Settlement& settlement,
     selectionPolicy(selectionPolicy->clone()),
     status(PlanStatus::AVALIABLE), facilityOptions(facilityOptions),
     life_quality_score(0), economy_score(0), environment_score(0) {
-}/*
-Plan::Plan()
-:settlement(),
-{
-};*/
+}
 //Rule of 5
 Plan::Plan(const Plan& other)
     : plan_id(other.plan_id), settlement(other.settlement),
@@ -170,7 +166,6 @@ const int Plan::getId() const {
     return plan_id;
 }
 
-
 SelectionPolicy* Plan::getSelectionPolicy() const {
     return selectionPolicy;
 }
@@ -198,3 +193,8 @@ bool Plan::CheckPolicy(string newpolicy) {
     return false;
 }
 
+Plan::Plan()
+:settlement(Settlement("",SettlementType::CITY)),facilityOptions(vector<FacilityType>())
+{
+
+};

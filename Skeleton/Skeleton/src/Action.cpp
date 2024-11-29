@@ -12,7 +12,9 @@
 
 
 
-BaseAction::BaseAction(){}
+BaseAction::BaseAction()
+:errorMsg(""),status()
+{}
 
 ActionStatus BaseAction::getStatus() const {
 	return status;
@@ -132,9 +134,6 @@ const string AddFacility::toString() const {
         return "Close ";
     }
 
-ActionStatus BaseAction::getStatus() const {
-	return status;
-}
 void BaseAction::error(string errorMsg) {
 	status = ActionStatus::ERROR;
 	errorMsg = errorMsg;
@@ -159,13 +158,9 @@ const string AddSettlement::toString() const {
 AddSettlement* AddSettlement::clone() const{
 	return new AddSettlement(settlementName, settlementType);
 }
-AddSettlement::~AddSettlement() {
-
-}
 AddSettlement::AddSettlement(const string& settlementName, SettlementType settlementType)
 	:settlementName(settlementName), settlementType(settlementType)
 {
-	
 };
 
 
@@ -262,7 +257,7 @@ BackupSimulation::BackupSimulation() {
 void BackupSimulation::act(Simulation& simulation) {
 	simulation.BackUp();
 }
-BackupSimulation* BackupSimulationclone() {
+BackupSimulation* BackupSimulation::clone() const{
 	return new BackupSimulation();
 }
 const string BackupSimulation::toString() const {

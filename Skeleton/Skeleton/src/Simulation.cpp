@@ -12,7 +12,7 @@
 
 Simulation::Simulation(const string& configFilePath)
     : isRunning(false), planCounter(0), actionsLog(), plans(), settlements(), facilitiesOptions()
-    ,falsePlan(-1),falseSettlement("",SettlementType::CITY) {
+    ,falseSettlement("",SettlementType::CITY),falsePlan(-1) {
 
     std::ifstream configFile(configFilePath);
     if (!configFile.is_open()) {
@@ -71,18 +71,15 @@ Simulation::Simulation(const string& configFilePath)
 Simulation::Simulation(const Simulation& other)
 	: isRunning(other.isRunning),
 	planCounter(other.planCounter),
-	plans(other.plans)
-    facilitiesOptions(other.facilitiesOptions){
-	for (BaseAction* b : other.actionsLog) {
-		actionsLog.push_back(b->clone()); // Assuming BaseAction has a virtual clone() method
-	}
-
-	// Deep copy of settlements
-	for (Settlement* s : other.settlements) {
-		settlements.push_back(new Settlement(*s)); // Assuming Settlement has a copy constructor
-	}
+	plans(other.plans),
+    facilitiesOptions(other.facilitiesOptions)
+    {
+	for (BaseAction* b : other.actionsLog)
+		actionsLog.push_back(b->clone());
+	for (Settlement* s : other.settlements) 
+		settlements.push_back(new Settlement(*s)); 
 }
-Simulation::Simulation(const Simulation&& other) noexcept
+Simulation::Simulation(Simulation&& other) noexcept
 	: isRunning(other.isRunning),
 	planCounter(other.planCounter),
 	plans(std::move(other.plans)),
@@ -90,7 +87,7 @@ Simulation::Simulation(const Simulation&& other) noexcept
 	actionsLog(std::move(other.actionsLog)),
 	settlements(std::move(other.settlements)) {
 	
-}
+};
 Simulation::~Simulation(){
     for (BaseAction* action : actionsLog) {
         delete action;
@@ -129,7 +126,7 @@ Simulation& Simulation::operator=(const Simulation& other) {
 }
 
 
-Simulation& Simulation::operator=(const Simulation&& other) noexcept {
+Simulation& Simulation::operator=(Simulation&& other) noexcept {
     if (this != &other) {
         // Clean up existing resources
         for (BaseAction* b : actionsLog) {

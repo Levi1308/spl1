@@ -47,4 +47,5 @@ private:
     std::vector<FacilityType> facilitiesOptions;
     Settlement falseSettlement;
     Plan falsePlan;
+};
 extern Simulation* backup;

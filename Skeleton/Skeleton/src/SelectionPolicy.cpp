@@ -58,7 +58,7 @@ for (int i = 0; i < facilitiesOptions.size(); i++ ){
     int Lscore = facilitiesOptions[i].getLifeQualityScore()+LifeQualityScore;
     int Ecscore = facilitiesOptions[i].getEconomyScore()+EconomyScore;
     int Envscore = facilitiesOptions[i].getEnvironmentScore()+EnvironmentScore;
-    int Idistance = std::max (std::abs (Lscore - Ecscore),std::abs (Lscore - Envscore), std::abs(Envscore - Ecscore) );
+    int Idistance =  CloseDistance(Lscore,Ecscore,Envscore);
     if( Idistance == 0 )
         return facilitiesOptions[i];
     if (i == 0){
@@ -73,7 +73,12 @@ for (int i = 0; i < facilitiesOptions.size(); i++ ){
 }
 return facilitiesOptions[IBselection];
 };
-
+int SelectionPolicy::CloseDistance(int x,int y,int z){
+    int diff1 = std::abs(x - y);
+    int diff2 = std::abs(y - z);
+    int diff3 = std::abs(z - x);
+    return std::max({diff1, diff2, diff3});
+}
 const string BalancedSelection::Nickname() const {
     return "bal";
 }
