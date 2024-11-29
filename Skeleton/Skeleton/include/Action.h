@@ -71,9 +71,6 @@ class AddSettlement : public BaseAction {
 class AddFacility : public BaseAction {
     public:
         AddFacility(const string &facilityName, const FacilityCategory facilityCategory, const int price, const int lifeQualityScore, const int economyScore, const int environmentScore);
-        AddFacility(const AddFacility& other);
-        ~AddFacility() = default;
-        AddFacility& operator=(const AddFacility& other)=default;
         void act(Simulation &simulation) override;
         AddFacility *clone() const override;
         const string toString() const override;
@@ -113,9 +110,6 @@ class ChangePlanPolicy : public BaseAction {
 class PrintActionsLog : public BaseAction {
     public:
         PrintActionsLog();
-        PrintActionsLog(PrintActionsLog& other) = default;
-        ~PrintActionsLog() = default;
-        PrintActionsLog& operator=(PrintActionsLog& other) = default;
         void act(Simulation &simulation) override;
         PrintActionsLog *clone() const override;
         const string toString() const override;
