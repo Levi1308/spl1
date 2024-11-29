@@ -223,16 +223,68 @@ void Simulation::start() {
 	while (isRunning) {
 			std::string userInput;
 			std::getline(std::cin, userInput);
-			vector<string> parseArgs = Auxiliary::parseArguments(userInput);
+			vector<string> args = Auxiliary::parseArguments(userInput);
 
-			if(userInput == "close"){
-				close();
-			}
-			else{
-				if(userInput == "step"){
-					step();
-				}
-			}
+            if (args.empty()) {
+              continue; 
+        }
+
+        const std::string& command = args[0];
+
+		if(command == "close"){
+			Close c = Close();
+            c.act(*this);
+		}
+		else if(command == "step"){
+            const std::string& stringNum = args[1];
+            SimulateStep simS = SimulateStep(std::stoi(stringNum));
+            simS.act(*this);
+		}
+	    else if(command == "planStatus"){
+          const std::string& stringNum = args[1];
+          PrintPlanStatus PPS = PrintPlanStatus(std::stoi(stringNum));
+          PPS.act(*this);
+        }
+        else if(command == "log"){
+            PrintActionsLog PAL = PrintActionsLog();
+            PAL.act(*this);
+        }
+        else if(command == "backup"){
+            BackupSimulation BS = BackupSimulation();
+            BS.act(*this);
+        }
+        else if(command == "restore"){
+            RestoreSimulation RS = RestoreSimulation();
+            RS.act(*this);
+        }
+        else if(command == "plan"){
+            const std::string& settlementName = args[1];
+            const std::string& policyName = args[2];
+            AddPlan AP = AddPlan(settlementName, policyName);
+            AP.act(*this);
+        }
+        else if(command == "settlement"){
+            const std::string& settlementName = args[1];
+            SettlementType type = static_cast<SettlementType>(std::stoi(args[2]));
+            AddSettlement as = AddSettlement(settlementName, type);
+        }
+        else if(command == "facility"){
+            const std::string& facilityName = args[1];
+            FacilityCategory category = static_cast<FacilityCategory>(std::stoi(args[2]));
+            int price = std::stoi(args[3]);
+            int lifeQualityScore = std::stoi(args[4]);
+            int economyScore = std::stoi(args[5]);
+            int environmentScore = std::stoi(args[6]);
+            AddFacility AF = AddFacility(facilityName, category, price, lifeQualityScore, economyScore, environmentScore);
+            AF.act(*this);
+        }
+        else if(command == "changePolicy"){
+            int planId = std::stoi(args[1]);
+            const std::string& newPolicy = args[2];
+            ChangePlanPolicy CPP = ChangePlanPolicy(planId, newPolicy);
+            CPP.act(*this);
+        }
+
 
 	}
 }
