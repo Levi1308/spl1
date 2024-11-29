@@ -5,8 +5,9 @@ all: clean compile link
 # Linking Rule
 link:
 	@echo "Linking source files"
-	g++ -o bin/skeleton bin/main.o bin/Settlement.o bin/Simulation.o bin/Facility.o bin/Auxiliary.o \
-	bin/SelectionPolicy.o bin/Action.o
+	g++ -o bin/skeleton bin/main.o bin/Settlement.o bin/Simulation.o bin/Facility.o \
+bin/Auxiliary.o bin/SelectionPolicy.o bin/Action.o bin/Plan.o
+
 
 # Compile Rule
 compile:
@@ -24,6 +25,9 @@ compile:
 	g++ -g -Wall -Weffc++ -std=c++11 -c -o bin/SelectionPolicy.o src/SelectionPolicy.cpp -Iinclude
 	@echo "Compile Action"
 	g++ -g -Wall -Weffc++ -std=c++11 -c -o bin/Action.o src/Action.cpp -Iinclude
+	@echo "Compile Plan"
+	g++ -g -Wall -Weffc++ -std=c++11 -c -o bin/Plan.o src/Plan.cpp -Iinclude
+
 
 
 clean:

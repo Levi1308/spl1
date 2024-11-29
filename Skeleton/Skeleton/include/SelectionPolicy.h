@@ -10,7 +10,6 @@ class SelectionPolicy {
         virtual const string Nickname() const = 0;
         virtual SelectionPolicy* clone() const = 0;
         virtual ~SelectionPolicy() = default;
-        virtual SelectionPolicy& operator= (const SelectionPolicy &other)=default;
         int CloseDistance(int x,int y,int z);
 };
 
@@ -22,8 +21,6 @@ class NaiveSelection: public SelectionPolicy {
         const string toString() const override;
         const string Nickname() const override;
         NaiveSelection *clone() const override;
-        ~NaiveSelection() override = default;
-        NaiveSelection& operator=(const NaiveSelection &other)=default;
     private:
         int lastSelectedIndex;
 };
@@ -36,8 +33,6 @@ class BalancedSelection: public SelectionPolicy {
         const string toString() const override;
         const string Nickname() const override;
         BalancedSelection *clone() const override;
-        ~BalancedSelection() override = default;
-        BalancedSelection& operator=(const BalancedSelection &other)=default;
     private:
         int LifeQualityScore;
         int EconomyScore;
@@ -52,8 +47,6 @@ class EconomySelection: public SelectionPolicy {
         const string toString() const override;
         const string Nickname() const override;
         EconomySelection *clone() const override;
-        ~EconomySelection() override = default;
-        EconomySelection& operator=(const EconomySelection &other)=default;
     private:
         int lastSelectedIndex;
 
@@ -67,8 +60,6 @@ class SustainabilitySelection: public SelectionPolicy {
         const string toString() const override;
         const string Nickname() const ;
         SustainabilitySelection *clone() const override;
-        ~SustainabilitySelection() override = default;
-        SustainabilitySelection& operator=(const SustainabilitySelection &other)=default;
     private:
         int lastSelectedIndex;
 };

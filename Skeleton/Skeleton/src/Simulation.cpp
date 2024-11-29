@@ -72,7 +72,8 @@ Simulation::Simulation(const Simulation& other)
 	: isRunning(other.isRunning),
 	planCounter(other.planCounter),
 	plans(other.plans),
-    facilitiesOptions(other.facilitiesOptions)
+    facilitiesOptions(other.facilitiesOptions), actionsLog(), settlements(),
+    falsePlan(-1), falseSettlement("",SettlementType::CITY)
     {
 	for (BaseAction* b : other.actionsLog)
 		actionsLog.push_back(b->clone());
@@ -85,7 +86,8 @@ Simulation::Simulation(Simulation&& other) noexcept
 	plans(std::move(other.plans)),
 	facilitiesOptions(std::move(other.facilitiesOptions)),
 	actionsLog(std::move(other.actionsLog)),
-	settlements(std::move(other.settlements)) {
+	settlements(std::move(other.settlements)),
+    falsePlan(-1), falseSettlement("",SettlementType::CITY) {
 	
 };
 Simulation::~Simulation(){

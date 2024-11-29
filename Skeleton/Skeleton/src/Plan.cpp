@@ -34,6 +34,9 @@ Plan::~Plan() {
     for (Facility* f : underConstruction) {
         delete f;
     }
+    facilities.clear();
+    underConstruction.clear();
+
 }
 
 Plan& Plan::operator=(const Plan& other) {
@@ -62,22 +65,6 @@ Plan& Plan::operator=(const Plan& other) {
     }
     return *this;
 };
-
-
-Plan::Plan( Plan&& other) noexcept
-    : plan_id(other.plan_id),
-    settlement(other.settlement),
-    selectionPolicy(std::move(other.selectionPolicy)),
-    status(other.status),
-    facilities(std::move(other.facilities)),
-    underConstruction(std::move(other.underConstruction)),
-    facilityOptions(other.facilityOptions),
-    life_quality_score(other.life_quality_score),
-    economy_score(other.economy_score),
-    environment_score(other.environment_score) {}
-
-
-
 
 const int Plan::getEconomyScore() const {
     return economy_score;
@@ -122,7 +109,7 @@ void Plan::printStatus() {
 
 void Plan::step() {
     if (getPlanStatus()==PlanStatus::AVALIABLE) {
-        while ( (int)settlement.getType() >= underConstruction.size()) {
+        while ( (int) (settlement.getType()) >= (int) (underConstruction.size())) {
             Facility* F = new Facility(getSelectionPolicy()->selectFacility(facilityOptions), settlement.getName());
             underConstruction.push_back(F);
         }
@@ -137,8 +124,11 @@ void Plan::step() {
             it++;  
         }
     }
-    if (underConstruction.size() < (int)settlement.getType())
+    if ( (int) (underConstruction.size()) < (int) (settlement.getType()))
         setPlanStatus(PlanStatus::AVALIABLE);
+    else{
+        setPlanStatus(PlanStatus::BUSY);
+    }
 }
 
 const std::string Plan::toString() const {

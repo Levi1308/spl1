@@ -54,7 +54,7 @@ const FacilityType& BalancedSelection::selectFacility(const vector<FacilityType>
 int IBselection = 0;
 int Bdistance;
 
-for (int i = 0; i < facilitiesOptions.size(); i++ ){
+for (int i = 0; i < int (facilitiesOptions.size()); i++ ){
     int Lscore = facilitiesOptions[i].getLifeQualityScore()+LifeQualityScore;
     int Ecscore = facilitiesOptions[i].getEconomyScore()+EconomyScore;
     int Envscore = facilitiesOptions[i].getEnvironmentScore()+EnvironmentScore;
@@ -99,12 +99,13 @@ EconomySelection* EconomySelection :: clone() const{
 return new EconomySelection(*this);}
 
 const FacilityType& EconomySelection:: selectFacility(const vector<FacilityType>& facilitiesOptions){
-for(int i = lastSelectedIndex + 1 ; i < facilitiesOptions.size(); i++){
+for(int i = lastSelectedIndex + 1 ; i < int (facilitiesOptions.size()); i++){
     if(facilitiesOptions[i].getCategory() == FacilityCategory::ECONOMY){
          lastSelectedIndex = i;
          return facilitiesOptions[i];
     }    
 }
+return facilitiesOptions[lastSelectedIndex];
 
 };
 
@@ -131,13 +132,13 @@ return new SustainabilitySelection(*this);
 }
 
 const FacilityType& SustainabilitySelection::selectFacility(const vector<FacilityType>& facilitiesOptions){
-for(int i = lastSelectedIndex + 1 ; i < facilitiesOptions.size(); i++){
+for(int i = lastSelectedIndex + 1 ; i < int (facilitiesOptions.size()); i++){
     if(facilitiesOptions[i].getCategory() == FacilityCategory::ENVIRONMENT){
          lastSelectedIndex = i;
          return facilitiesOptions[i];
     }    
 }
-
+return facilitiesOptions[lastSelectedIndex];
 }
 const string SustainabilitySelection::Nickname() const {
     return "env";
