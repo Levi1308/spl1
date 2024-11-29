@@ -7,17 +7,21 @@ Plan::Plan(const int planId, const Settlement& settlement,
     SelectionPolicy* selectionPolicy, const std::vector<FacilityType>& facilityOptions)
     : plan_id(planId), settlement(settlement),
     selectionPolicy(selectionPolicy->clone()),
-    status(PlanStatus::AVALIABLE), facilityOptions(facilityOptions),
+    status(PlanStatus::AVALIABLE), 
+    facilities(vector<Facility*>()),
+    underConstruction(vector<Facility*>()),
+    facilityOptions(facilityOptions),
     life_quality_score(0), economy_score(0), environment_score(0) {
 }
 //Rule of 5
 Plan::Plan(const Plan& other)
     : plan_id(other.plan_id), settlement(other.settlement),
     selectionPolicy(other.selectionPolicy->clone()),
-    status(other.status), facilityOptions(other.facilityOptions),
+    status(other.status),
+    facilities(), underConstruction(), facilityOptions(other.facilityOptions),
     life_quality_score(other.life_quality_score),
     economy_score(other.economy_score),
-    environment_score(other.environment_score), facilities(), underConstruction() {
+    environment_score(other.environment_score){
     for (Facility* f : other.facilities) {
         facilities.push_back(f->clone());
     }
@@ -169,10 +173,12 @@ void Plan::setPlanStatus(PlanStatus p) {
 
 Plan::Plan(int plan_id)
     : plan_id(plan_id),
-    settlement(settlement),
+    settlement(Settlement("",SettlementType::CITY)),
     selectionPolicy(nullptr), 
     status(PlanStatus::AVALIABLE),
-    facilityOptions(facilityOptions),
+    facilities(vector<Facility*>()),
+    underConstruction(vector<Facility*>()),
+    facilityOptions(vector<FacilityType>()),
     life_quality_score(0),
     economy_score(0),
     environment_score(0) {
@@ -184,10 +190,17 @@ bool Plan::CheckPolicy(string newpolicy) {
 }
 
 Plan::Plan()
-:settlement(Settlement("",SettlementType::CITY)),facilityOptions(vector<FacilityType>())
+    : plan_id(-1),settlement(Settlement("",SettlementType::CITY)),                
+    selectionPolicy(nullptr),
+    status(PlanStatus::AVALIABLE),       
+    facilities(vector<Facility*>()),
+    underConstruction(vector<Facility*>()),
+    facilityOptions(vector<FacilityType>()),
+    life_quality_score(0),economy_score(0),
+    environment_score(0)
 {
-
-};const int Plan::getUnderunderConstructionLQS() const{
+    
+}const int Plan::getUnderunderConstructionLQS() const{
     int LQS = 0;
     for(Facility* F: underConstruction){
         LQS = LQS +F->getLifeQualityScore();

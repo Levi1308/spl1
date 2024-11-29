@@ -18,8 +18,8 @@ public:
     Simulation(const Simulation& other);
     ~Simulation();
     Simulation& operator=(const Simulation& other);
-    Simulation( Simulation&& other) noexcept;
-    Simulation& operator=( Simulation&& other) noexcept;
+    Simulation(Simulation&& other) noexcept;
+    Simulation& operator=(Simulation&& other) noexcept;
     void start();
     void addPlan(const Settlement& settlement, SelectionPolicy* selectionPolicy);
     void addAction(BaseAction* action);

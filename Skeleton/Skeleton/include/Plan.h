@@ -19,6 +19,7 @@ class Plan {
         Plan(Plan&& other) = delete;
         Plan(int plan_id);
         Plan();
+        ~Plan();
         const int getlifeQualityScore() const;
         const int getEconomyScore() const;
         const int getEnvironmentScore() const;

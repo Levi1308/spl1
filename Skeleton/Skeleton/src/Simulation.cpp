@@ -71,9 +71,12 @@ Simulation::Simulation(const string& configFilePath)
 Simulation::Simulation(const Simulation& other)
 	: isRunning(other.isRunning),
 	planCounter(other.planCounter),
+    actionsLog(),
 	plans(other.plans),
-    facilitiesOptions(other.facilitiesOptions), actionsLog(), settlements(),
-    falsePlan(-1), falseSettlement("",SettlementType::CITY)
+    settlements(),
+    facilitiesOptions(other.facilitiesOptions),  
+    falseSettlement("",SettlementType::CITY),
+    falsePlan(-1)
     {
 	for (BaseAction* b : other.actionsLog)
 		actionsLog.push_back(b->clone());
@@ -83,11 +86,12 @@ Simulation::Simulation(const Simulation& other)
 Simulation::Simulation(Simulation&& other) noexcept
 	: isRunning(other.isRunning),
 	planCounter(other.planCounter),
+    actionsLog(std::move(other.actionsLog)),
 	plans(std::move(other.plans)),
+    settlements(std::move(other.settlements)),
 	facilitiesOptions(std::move(other.facilitiesOptions)),
-	actionsLog(std::move(other.actionsLog)),
-	settlements(std::move(other.settlements)),
-    falsePlan(-1), falseSettlement("",SettlementType::CITY) {
+	falseSettlement("",SettlementType::CITY),
+    falsePlan(-1){
 	
 };
 Simulation::~Simulation(){
