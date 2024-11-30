@@ -122,7 +122,6 @@ const string AddFacility::toString() const {
             std::cout << p.toString() << std::endl;
         }
         simulation.close();
-        simulation.~Simulation();
         complete();
     }
     Close* Close::clone() const {
@@ -205,15 +204,12 @@ PrintPlanStatus::PrintPlanStatus(int planId)
 
 };
 void PrintPlanStatus::act(Simulation& simulation) {
-	Plan* p = new Plan(simulation.getPlan(planId));
-	if(p!=nullptr)
-	{
-		if (p->getId() != -1)
+	Plan p = simulation.getPlan(planId);
+		if (p.getId() != -1)
 		{
-		p->printStatus();
+		p.printStatus();
 		complete();
 		}
-	}
 	else
 		error("Plan doesn't exist");
 };
@@ -236,7 +232,7 @@ void ChangePlanPolicy::act(Simulation& simulation) {
 	{
 		simulation.setPlanPolicy(planId, newPolicy);
 		complete();
-		//delete p;
+		delete p;
 	}
 	}
 	error("Cannot change selection policy");
