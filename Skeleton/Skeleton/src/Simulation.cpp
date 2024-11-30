@@ -214,6 +214,7 @@ void Simulation::close() {
     for(Settlement* s:settlements){
         delete s;
     }
+    delete backup;
 	isRunning = false;
 }
 void Simulation::step() {
