@@ -132,6 +132,7 @@ Simulation& Simulation::operator=(const Simulation& other) {
 }
 
 
+
 Simulation& Simulation::operator=(Simulation&& other) noexcept {
     if (this != &other) {
         // Clean up existing resources
@@ -163,10 +164,9 @@ void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectio
 
 
 bool Simulation::addSettlement(Settlement* settlement) {
-	Settlement* s(settlement);
 	if (isSettlementExists((*settlement).getName()))
 	{
-		settlements.push_back(s);
+		settlements.push_back(settlement);
 		return true;
 	}
 	return false;

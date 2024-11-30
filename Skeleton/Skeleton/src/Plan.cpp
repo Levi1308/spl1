@@ -40,7 +40,6 @@ Plan::~Plan() {
     }
     facilities.clear();
     underConstruction.clear();
-
 }
 
 Plan& Plan::operator=(const Plan& other) {
@@ -94,20 +93,18 @@ const std::string Plan::getStringStatus() const {
 }
 
 void Plan::printStatus() {
-    std::cout << "Plan ID: " << plan_id << ", Settlement Name: " << settlement.getName() << std::endl;
-    std::cout << "Plan Status: " << getStringStatus() << std::endl;
-    std::cout << "Selection Policy: " << selectionPolicy->toString()+"\n" << std::endl;
-    std::cout << "Life Quality Score: " << getlifeQualityScore() << std::endl;
-    std::cout << "Economy Score: " << getEconomyScore() << std::endl;
-    std::cout << "Environment Score: " << getEnvironmentScore() << std::endl;
-
+    std::cout << "Plan ID: " << plan_id <<std::endl;
+    std::cout<<"Settlement Name: " << settlement.getName() << std::endl;
+    std::cout << "PlanStatus: " << getStringStatus() << std::endl;
+    std::cout << "SelectionPolicy: " << selectionPolicy->toString()<< std::endl;
+    std::cout << "LifeQualityScore: " << getlifeQualityScore() << std::endl;
+    std::cout << "EconomyScore: " << getEconomyScore() << std::endl;
+    std::cout << "EnvironmentScore: " << getEnvironmentScore() << std::endl;
     for (Facility* f : facilities) {
-        if (std::find(underConstruction.begin(), underConstruction.end(), f) != underConstruction.end()) {
-            std::cout << f->getName() << " facilityStatus: UnderConstruction" << std::endl;
-        }
-        else {
-            std::cout << f->getName() << " facilityStatus: Operational" << std::endl;
-        }
+            std::cout << f->toString() << std::endl;
+            }
+    for (Facility* f : underConstruction) {    
+            std::cout << f->toString() << std::endl;  
     }
 }
 

@@ -20,7 +20,7 @@ NaiveSelection:: NaiveSelection(const NaiveSelection &other):lastSelectedIndex(o
 
 // other methods for NaiveSelection
 const string NaiveSelection::toString() const {
-return "Selected Facility Index: " + std::to_string(lastSelectedIndex);}
+return "nve";}
 
 NaiveSelection* NaiveSelection::clone() const {
 return new NaiveSelection(*this);}
@@ -45,7 +45,7 @@ BalancedSelection::BalancedSelection(const BalancedSelection &other)
 
 // other methods for BalancedSelection
 const string BalancedSelection::toString() const{
-return "Current Scores: LifeQualityScore: " + std::to_string(LifeQualityScore) +"EconomyScore: " + std::to_string(EconomyScore)+ "EnvironmentScore: " + std::to_string(EnvironmentScore);}
+return "bal";}
 
 BalancedSelection* BalancedSelection::clone() const {
 return new BalancedSelection(*this);}
@@ -93,7 +93,7 @@ EconomySelection::EconomySelection(const EconomySelection &other)
 
 // other methods for EconomySelection
 const string EconomySelection::toString() const{
-return "Selected Economy Facility Index: " + std::to_string(lastSelectedIndex);}
+return "eco";}
 
 EconomySelection* EconomySelection :: clone() const{
 return new EconomySelection(*this);}
@@ -124,7 +124,7 @@ SustainabilitySelection::SustainabilitySelection(const SustainabilitySelection &
 
 // other methods for SustainabilitySelection
 const string SustainabilitySelection::toString() const{
-return "Selected environment Facility Index: " + std::to_string(lastSelectedIndex);}
+return "env";}
 
 
 SustainabilitySelection* SustainabilitySelection:: clone() const {

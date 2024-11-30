@@ -83,7 +83,7 @@ void SimulateStep::act(Simulation& simulation) {
 
 
 const string SimulateStep::toString() const {
-    return "Step " + std::to_string(numOfSteps) + actionStatusToString(getStatus());
+    return "SimulationStep " + std::to_string(numOfSteps)+" "+ actionStatusToString(getStatus());
 }
 
 
@@ -248,7 +248,7 @@ PrintPlanStatus* PrintPlanStatus::clone() const {
 	return new PrintPlanStatus(planId);
 }
 const string PrintPlanStatus::toString() const {
-	return "planStatus "+ std::to_string(planId) + " " + actionStatusToString(getStatus());
+	return "PrintPlanStatus "+ std::to_string(planId) + " " + actionStatusToString(getStatus());
 }
 
 
@@ -277,7 +277,7 @@ ChangePlanPolicy* ChangePlanPolicy::clone() const {
 	return new ChangePlanPolicy(planId, newPolicy);
 };
 const string ChangePlanPolicy::toString() const {
-	return "changePlanPolicy " + std::to_string(planId) +  " " + newPolicy + " " + actionStatusToString(getStatus());
+	return "ChangePlanPolicy " + std::to_string(planId) +  " " + newPolicy + " " + actionStatusToString(getStatus());
 };
 
 
@@ -293,11 +293,9 @@ BackupSimulation* BackupSimulation::clone() const{
 	return new BackupSimulation();
 }
 const string BackupSimulation::toString() const {
-	return "Backup " + actionStatusToString(getStatus());
+	return "BackupSimulation " + actionStatusToString(getStatus());
 }
 
-
-//RestoreSimulation Class
 RestoreSimulation::RestoreSimulation() {
 	
 }
@@ -313,5 +311,5 @@ RestoreSimulation* RestoreSimulation::clone() const {
 	return new RestoreSimulation();
 }
 const string RestoreSimulation::toString() const {
-	return "Restore " + actionStatusToString(getStatus());
+	return "Restore Simulation" + actionStatusToString(getStatus());
 };
