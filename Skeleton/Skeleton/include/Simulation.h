@@ -36,7 +36,7 @@ public:
     void step();
     void close();
     void open();
-
+    Simulation* getBackup();
 
 private:
     bool isRunning;

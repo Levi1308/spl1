@@ -10,7 +10,7 @@
 
 
 class Simulation;
-
+//BaseAction Class
 BaseAction::BaseAction()
 :errorMsg(""),status()
 {}
@@ -21,9 +21,52 @@ ActionStatus BaseAction::getStatus() const {
 
 void BaseAction::complete() {
 	status = ActionStatus::COMPLETED;
-    std::cout << "Action completed succesfully!" << std::endl;
+}
+void BaseAction::error(string errorMsg) {
+	status = ActionStatus::ERROR;
+	std::cout << "ERROR: " + errorMsg << std::endl;
+}
+const string& BaseAction::getErrorMsg() const {
+	return errorMsg;
 }
 
+std::string actionStatusToString(ActionStatus status) {
+    if (status == ActionStatus::COMPLETED) {
+        return "COMPLETED";
+    } else if (status == ActionStatus::ERROR) {
+        return "ERROR";
+    } else {
+        return "UNKNOWN";
+    }
+}
+std::string facilityCategoryToString(FacilityCategory category) {
+    if (category == FacilityCategory::LIFE_QUALITY) {
+        return "1";
+    } else if (category == FacilityCategory::ECONOMY) {
+        return "2";
+    } else if (category == FacilityCategory::ENVIRONMENT) {
+        return "3";
+    } else {
+        return "0"; // Default value for unknown categories
+    }
+}
+std::string settlementTypeToNumberString(SettlementType type) {
+    switch (type) {
+        case SettlementType::VILLAGE:
+            return "1";
+        case SettlementType::CITY:
+            return "2";
+        case SettlementType::METROPOLIS:
+            return "3";
+        default:
+            return "0"; // Default value for unknown types
+    }
+}
+
+
+
+
+// SimulateStep Class
 SimulateStep::SimulateStep(const int numOFSteps) 
 	:numOfSteps(numOFSteps){}
 
@@ -37,16 +80,7 @@ void SimulateStep::act(Simulation& simulation) {
     complete();
 }
 
-std::string actionStatusToString(ActionStatus status) {
-    switch (status) {
-    case ActionStatus::COMPLETED:
-        return "COMPLETED";
-    case ActionStatus::ERROR:
-        return "ERROR";
-    default:
-        return "UNKNOWN";
-    }
-}
+
 
 const string SimulateStep::toString() const {
     return "Step " + std::to_string(numOfSteps) + actionStatusToString(getStatus());
@@ -57,6 +91,7 @@ SimulateStep* SimulateStep::clone() const {
 	return new SimulateStep(*this);
 }
 
+//AddFacility Class
 AddFacility::AddFacility(const string& AfacilityName, const FacilityCategory AfacilityCategory, const int Aprice, const int AlifeQualityScore, const int AeconomyScore, const int AenvironmentScore)
     :facilityName(AfacilityName), facilityCategory(AfacilityCategory), price(Aprice), lifeQualityScore(AlifeQualityScore), economyScore(AeconomyScore), environmentScore(AenvironmentScore){}
 
@@ -64,7 +99,7 @@ AddFacility::AddFacility(const string& AfacilityName, const FacilityCategory Afa
 void AddFacility::act(Simulation& simulation) {
     FacilityType F(facilityName, facilityCategory, price, lifeQualityScore, economyScore, environmentScore);
     if (simulation.addFacility(F) == false) {
-        error(getErrorMsg());
+        error("Facility already exists");
     }
     else {
         complete();
@@ -76,17 +111,17 @@ AddFacility* AddFacility::clone() const {
     return new AddFacility(*this);
 }
 
-
-
 const string AddFacility::toString() const {
-    return "Add Facility: " + facilityName + actionStatusToString(getStatus());
+    return "Facility " + facilityName + facilityCategoryToString (facilityCategory) + " " +
+	 std::to_string(price) + " " + std::to_string(lifeQualityScore) + " " +
+	 std::to_string(economyScore) + " " + std::to_string(environmentScore) + " " + actionStatusToString(getStatus());
 }
-            
 
+
+//PrintActionLog Class
     PrintActionsLog::PrintActionsLog() {}
 
     void PrintActionsLog::act(Simulation& simulation) {
-        // Retrieve the action log from the simulation
         const auto& actionLog = simulation.getActionLog();
 
         if (actionLog.empty()) {
@@ -95,8 +130,8 @@ const string AddFacility::toString() const {
         }
 
         for (BaseAction* action : actionLog) {
-            if (action != nullptr) { // Ensure the action pointer is valid
-                std::cout << action->toString()  << std::endl;
+            if (action != nullptr) { 
+                std::cout << action->toString() << std::endl;
             }
         }
     }
@@ -108,7 +143,7 @@ const string AddFacility::toString() const {
     const string PrintActionsLog::toString() const {
         return "PrintActionsLog";
     }
-
+//Close Class
     Close::Close(){}
 
     void Close::act(Simulation& simulation) {
@@ -117,9 +152,8 @@ const string AddFacility::toString() const {
         if (plans.empty()) {
             std::cout << "No plans logged yet." << std::endl;
         }
-
         for (Plan p : plans) {
-            std::cout << p.toString() << std::endl;
+             p.printStatus();
         }
         simulation.close();
         complete();
@@ -131,14 +165,8 @@ const string AddFacility::toString() const {
         return "Close ";
     }
 
-void BaseAction::error(string errorMsg) {
-	status = ActionStatus::ERROR;
-	errorMsg = errorMsg;
-	std::cout << "ERROR: Action faild " + errorMsg << std::endl;
-}
-const string& BaseAction::getErrorMsg() const {
-	return errorMsg;
-}
+
+//AddSettlement Class
 void AddSettlement::act(Simulation& simulation) {
 	if (!simulation.isSettlementExists(settlementName))
 	{
@@ -147,10 +175,10 @@ void AddSettlement::act(Simulation& simulation) {
 		complete();
 	}
 	else
-		std::cout << "Settlement already Exist" << std::endl;
+		error("Settlement already Exist");
 }
 const string AddSettlement::toString() const {
-	return "Adding Settlement";
+	return "Settlement " + settlementName + " " +settlementTypeToNumberString(settlementType) + " " + actionStatusToString(getStatus());
 }
 AddSettlement* AddSettlement::clone() const{
 	return new AddSettlement(settlementName, settlementType);
@@ -161,6 +189,7 @@ AddSettlement::AddSettlement(const string& settlementName, SettlementType settle
 };
 
 
+//AddPlan Class
 AddPlan::AddPlan(const string& settlementName, const string& selectionPolicy)
 	:settlementName(settlementName), selectionPolicy(selectionPolicy)
 {
@@ -192,12 +221,14 @@ void AddPlan::act(Simulation& simulation) {
 	error("Cannot create this plan");
 };
 	const string AddPlan::toString() const {
-		return "Add Plan";
+		return "Plan " + settlementName + " " + selectionPolicy + " " + actionStatusToString(getStatus()) ;
 	};
 AddPlan* AddPlan::clone() const {
 	return new AddPlan(settlementName, selectionPolicy);
 }
 
+
+//PringPlanStatus Class
 PrintPlanStatus::PrintPlanStatus(int planId)
 	:planId(planId)
 {
@@ -217,8 +248,11 @@ PrintPlanStatus* PrintPlanStatus::clone() const {
 	return new PrintPlanStatus(planId);
 }
 const string PrintPlanStatus::toString() const {
-	return "Printing Status of a Plan";
+	return "planStatus "+ std::to_string(planId) + " " + actionStatusToString(getStatus());
 }
+
+
+//ChangePlanPolicy Class
 ChangePlanPolicy::ChangePlanPolicy(const int planId, const string& newPolicy)
 	:planId(planId), newPolicy(newPolicy)
 {
@@ -231,6 +265,9 @@ void ChangePlanPolicy::act(Simulation& simulation) {
 	if (p.getId() != -1 && p.CheckPolicy(newPolicy))
 	{
 		simulation.setPlanPolicy(planId, newPolicy);
+		std::cout<<"planID: " + std::to_string(p.getId())<< std::endl;
+		std::cout<<"prviousPolicy: " + p.getSelectionPolicy()->toString()<<std::endl;
+		std::cout<<"newPolicy: " + newPolicy;
 		complete();
 	}
 	}
@@ -240,8 +277,11 @@ ChangePlanPolicy* ChangePlanPolicy::clone() const {
 	return new ChangePlanPolicy(planId, newPolicy);
 };
 const string ChangePlanPolicy::toString() const {
-	return "Changing Policy of a Plan";
+	return "changePlanPolicy " + std::to_string(planId) +  " " + newPolicy + " " + actionStatusToString(getStatus());
 };
+
+
+//BackupSimulation Class
 BackupSimulation::BackupSimulation() {
 	
 }
@@ -253,18 +293,25 @@ BackupSimulation* BackupSimulation::clone() const{
 	return new BackupSimulation();
 }
 const string BackupSimulation::toString() const {
-	return "Backup Simulation";
+	return "Backup " + actionStatusToString(getStatus());
 }
 
+
+//RestoreSimulation Class
 RestoreSimulation::RestoreSimulation() {
 	
 }
 void RestoreSimulation::act(Simulation& simulation) {
-	simulation.Restore();
+	if (simulation.getBackup() == nullptr){
+		error("No backup available");
+	}
+	else{
+		simulation.Restore();
+	}
 }
 RestoreSimulation* RestoreSimulation::clone() const {
 	return new RestoreSimulation();
 }
 const string RestoreSimulation::toString() const {
-	return "Restoring simulation";
+	return "Restore " + actionStatusToString(getStatus());
 };
