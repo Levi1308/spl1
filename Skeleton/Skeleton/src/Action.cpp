@@ -225,18 +225,16 @@ ChangePlanPolicy::ChangePlanPolicy(const int planId, const string& newPolicy)
 
 };
 void ChangePlanPolicy::act(Simulation& simulation) {
-	Plan* p = new Plan(simulation.getPlan(planId));
-	if(p!=nullptr)
+	Plan p = simulation.getPlan(planId);
+		if (p.getId() != -1)
 	{
-	if (p->getId() != -1 && p->CheckPolicy(newPolicy))
+	if (p.getId() != -1 && p.CheckPolicy(newPolicy))
 	{
 		simulation.setPlanPolicy(planId, newPolicy);
 		complete();
-		delete p;
 	}
 	}
 	error("Cannot change selection policy");
-	delete p;
 };
 ChangePlanPolicy* ChangePlanPolicy::clone() const {
 	return new ChangePlanPolicy(planId, newPolicy);

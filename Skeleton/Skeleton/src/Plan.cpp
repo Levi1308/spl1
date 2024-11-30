@@ -96,7 +96,7 @@ const std::string Plan::getStringStatus() const {
 void Plan::printStatus() {
     std::cout << "Plan ID: " << plan_id << ", Settlement Name: " << settlement.getName() << std::endl;
     std::cout << "Plan Status: " << getStringStatus() << std::endl;
-    std::cout << "Selection Policy: " << selectionPolicy->toString() << std::endl;
+    std::cout << "Selection Policy: " << selectionPolicy->toString()+"\n" << std::endl;
     std::cout << "Life Quality Score: " << getlifeQualityScore() << std::endl;
     std::cout << "Economy Score: " << getEconomyScore() << std::endl;
     std::cout << "Environment Score: " << getEnvironmentScore() << std::endl;
