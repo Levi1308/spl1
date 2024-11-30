@@ -208,6 +208,12 @@ void Simulation::addAction(BaseAction* action) {
 
 void Simulation::close() {
 	std::cout << "The simulation has finished" << std::endl;
+    for(BaseAction* BA: actionsLog){
+        delete BA;
+    }
+    for(Settlement* s:settlements){
+        delete s;
+    }
 	isRunning = false;
 }
 void Simulation::step() {
@@ -240,36 +246,43 @@ void Simulation::start() {
 		}
 		else if(command == "step"){
             const std::string& stringNum = args[1];
-            SimulateStep simS = SimulateStep(std::stoi(stringNum));
-            simS.act(*this);
+            SimulateStep* simS = new SimulateStep(std::stoi(stringNum));
+            simS->act(*this);
+            actionsLog.push_back(simS);
 		}
 	    else if(command == "planStatus"){
           const std::string& stringNum = args[1];
-          PrintPlanStatus PPS = PrintPlanStatus(std::stoi(stringNum));
-          PPS.act(*this);
+          PrintPlanStatus* PPS = new PrintPlanStatus(std::stoi(stringNum));
+          PPS->act(*this);
+          actionsLog.push_back(PPS);
         }
         else if(command == "log"){
             PrintActionsLog PAL = PrintActionsLog();
             PAL.act(*this);
         }
         else if(command == "backup"){
-            BackupSimulation BS = BackupSimulation();
-            BS.act(*this);
+            BackupSimulation* BS = new BackupSimulation();
+            BS->act(*this);
+            actionsLog.push_back(BS);
         }
         else if(command == "restore"){
-            RestoreSimulation RS = RestoreSimulation();
-            RS.act(*this);
+            RestoreSimulation* RS = new RestoreSimulation();
+            RS->act(*this);
+            actionsLog.push_back(RS);
         }
         else if(command == "plan"){
             const std::string& settlementName = args[1];
             const std::string& policyName = args[2];
-            AddPlan AP = AddPlan(settlementName, policyName);
-            AP.act(*this);
+            AddPlan* AP = new AddPlan(settlementName, policyName);
+            AP->act(*this);
+            actionsLog.push_back(AP);
         }
         else if(command == "settlement"){
             const std::string& settlementName = args[1];
             SettlementType type = static_cast<SettlementType>(std::stoi(args[2]));
-            AddSettlement as = AddSettlement(settlementName, type);
+            AddSettlement* AS = new AddSettlement(settlementName, type);
+            AS->act(*this);
+            actionsLog.push_back(AS);
         }
         else if(command == "facility"){
             const std::string& facilityName = args[1];
@@ -278,14 +291,16 @@ void Simulation::start() {
             int lifeQualityScore = std::stoi(args[4]);
             int economyScore = std::stoi(args[5]);
             int environmentScore = std::stoi(args[6]);
-            AddFacility AF = AddFacility(facilityName, category, price, lifeQualityScore, economyScore, environmentScore);
-            AF.act(*this);
+            AddFacility* AF = new AddFacility(facilityName, category, price, lifeQualityScore, economyScore, environmentScore);
+            AF->act(*this);
+            actionsLog.push_back(AF);
         }
         else if(command == "changePolicy"){
             int planId = std::stoi(args[1]);
             const std::string& newPolicy = args[2];
-            ChangePlanPolicy CPP = ChangePlanPolicy(planId, newPolicy);
-            CPP.act(*this);
+            ChangePlanPolicy* CPP = new ChangePlanPolicy(planId, newPolicy);
+            CPP->act(*this);
+            actionsLog.push_back(CPP);
         }
 
 
@@ -332,4 +347,8 @@ void Simulation::setPlanPolicy(int planId, const string& newPolicy){
 		p.setSelectionPolicy(new SustainabilitySelection());
 	}
     }
+}
+
+Simulation* Simulation::getBackup(){
+    return backup;
 }
