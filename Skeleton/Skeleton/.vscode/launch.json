@@ -1,0 +1,13 @@
+{
+    "configurations": [
+    {
+        "name": "Linux",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "/workspaces/spl1/Skeleton/Skeleton/bin/skeleton",
+        "args": ["config_file.txt"],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+    }
+    ]
+}
