@@ -86,6 +86,12 @@ const string BalancedSelection::Nickname() const {
     return "bal";
 }
 
+void BalancedSelection::setScores(int Life_Quality_Score, int Economy_Score, int Environment_Score) {
+    LifeQualityScore = LifeQualityScore - Life_Quality_Score;
+    EconomyScore = EconomyScore - Economy_Score;
+    EnvironmentScore = EnvironmentScore - Environment_Score;
+}
+
 
 
 //Constructor of EconomySelection
@@ -148,4 +154,6 @@ return facilitiesOptions[lastSelectedIndex];
 const string SustainabilitySelection::Nickname() const {
     return "env";
 }
+
+
 
