@@ -118,6 +118,9 @@ void Plan::step() {
     for (auto it = underConstruction.begin(); it != underConstruction.end();) {
         if ((*it)->step() == FacilityStatus::OPERATIONAL) {
             addFacility(*it);
+            setLifeQualityScore((*it)->getLifeQualityScore());
+            setEconomyScore((*it)->getEconomyScore());
+            setEnvironmentScore((*it)->getEnvironmentScore());
             delete* it;  
             it = underConstruction.erase(it); 
         }
@@ -219,4 +222,16 @@ const int Plan::getUnderunderConstructionENS() const{
         ENS = ENS + F->getEnvironmentScore();
     }
     return ENS;
+}
+
+void Plan::setLifeQualityScore(int addL) {
+    life_quality_score = life_quality_score + addL;
+}
+
+void Plan::setEconomyScore(int addEc) {
+    economy_score = economy_score + addEc;
+}
+
+void Plan::setEnvironmentScore(int addEn) {
+    environment_score = environment_score + addEn;
 }
