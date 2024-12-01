@@ -13,7 +13,7 @@
 
 Simulation::Simulation(const string& configFilePath)
     : isRunning(false), planCounter(0), actionsLog(), plans(), settlements(), facilitiesOptions()
-    ,falseSettlement("",SettlementType::CITY),falsePlan(-1) {
+    ,falseSettlement("",SettlementType::CITY,false),falsePlan(-1) {
 
     std::ifstream configFile(configFilePath);
     if (!configFile.is_open()) {
@@ -160,7 +160,7 @@ Simulation& Simulation::operator=(Simulation&& other) noexcept {
 
 
 void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectionPolicy) {
-	plans.emplace_back(planCounter++, settlement, selectionPolicy, facilitiesOptions);
+	plans.push_back(Plan(planCounter++, settlement, selectionPolicy, facilitiesOptions));
 }
 
 

@@ -3,14 +3,23 @@
 #include "string"
     //Constructor
     Settlement::Settlement(const string& settelementName, SettlementType settelementType)
-        :name(settelementName), type(settelementType) {
+        :name(settelementName), type(settelementType),valid(true) {
     };
 
-    
+    Settlement::Settlement(const string &settelementName, SettlementType settelementType,bool notvalid)
+    :name(settelementName), type(settelementType),valid(false) {
 
+    };
     Settlement::Settlement(const Settlement& other)
         :name(other.name), type(other.type) {
     };
+    Settlement& Settlement::operator= (const Settlement& other){
+        if(this!=&other)
+        {
+            type=other.type;
+        }
+        return *this;
+    }
     const string& Settlement::getName() const { return name; }
 
     SettlementType Settlement::getType() const { return type; }
@@ -26,3 +35,6 @@
         }
 
     };
+    bool Settlement::Valid() const{
+        return valid;
+    }

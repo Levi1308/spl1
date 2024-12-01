@@ -7,14 +7,15 @@ using std::vector;
 class Facility;
 
 enum class SettlementType {
-    VILLAGE=1,
-    CITY=2,
-    METROPOLIS=3,
+    VILLAGE=0,
+    CITY=1,
+    METROPOLIS=2,
 };
 
 class Settlement {
     public:
         Settlement(const string &name, SettlementType type);
+        Settlement(const string &name, SettlementType type,bool notvalid);
         Settlement() =default;
         Settlement(const Settlement& other);
         ~Settlement() = default;
@@ -22,8 +23,10 @@ class Settlement {
         const string &getName() const;
         SettlementType getType() const;
         const string toString() const;
+        bool Valid() const;
 
         private:
             const string name;
             SettlementType type;
+            bool valid=true;
 };

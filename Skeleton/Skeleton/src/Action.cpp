@@ -199,25 +199,24 @@ AddPlan::AddPlan(const string& settlementName, const string& selectionPolicy)
 
 }
 void AddPlan::act(Simulation& simulation) {
-	if (settlementName!="" && selectionPolicy!="")
+	if (simulation.getSettlement(settlementName).Valid())
 	{
-		Settlement s=simulation.getSettlement(settlementName);
 		if (selectionPolicy == "nve") {
-			simulation.addPlan(s, new NaiveSelection());
+			//simulation.addPlan(s, new NaiveSelection());
 			complete();
 		}
 		else if (selectionPolicy == "bal") {
-			simulation.addPlan(s, new BalancedSelection(0, 0, 0));
+			//simulation.addPlan(s, new BalancedSelection(0, 0, 0));
 
 			complete();
 		}
 		else if (selectionPolicy == "eco") {
-			simulation.addPlan(s, new EconomySelection());
+			//simulation.addPlan(s, new EconomySelection());
 
 			complete();
 		}
 		else if (selectionPolicy == "env") {
-			simulation.addPlan(s, new SustainabilitySelection());
+			//simulation.addPlan(s, new SustainabilitySelection());
 			complete();
 		}
 	}
