@@ -164,12 +164,8 @@ void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectio
 
 
 bool Simulation::addSettlement(Settlement* settlement) {
-	if (isSettlementExists((*settlement).getName()))
-	{
-		settlements.push_back(settlement);
-		return true;
-	}
-	return false;
+	settlements.push_back(settlement);
+	return true;
 }
 
 bool Simulation::isSettlementExists(const string& settlementName) {

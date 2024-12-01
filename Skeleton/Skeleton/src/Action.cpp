@@ -171,8 +171,10 @@ void AddSettlement::act(Simulation& simulation) {
 	if (!simulation.isSettlementExists(settlementName))
 	{
 		Settlement* s = new Settlement(settlementName, settlementType);
-		simulation.addSettlement(s);
-		complete();
+		if(simulation.addSettlement(s))
+			complete();
+		else
+			error("Settlement already Exist");
 	}
 	else
 		error("Settlement already Exist");
@@ -196,9 +198,9 @@ AddPlan::AddPlan(const string& settlementName, const string& selectionPolicy)
 
 }
 void AddPlan::act(Simulation& simulation) {
-	Settlement s = simulation.getSettlement(settlementName);
-	if (s.getName() != "")
+	if (settlementName!="" && selectionPolicy!="")
 	{
+		Settlement s=simulation.getSettlement(settlementName);
 		if (selectionPolicy == "nve") {
 			simulation.addPlan(s, new NaiveSelection());
 			complete();
@@ -218,7 +220,8 @@ void AddPlan::act(Simulation& simulation) {
 			complete();
 		}
 	}
-	error("Cannot create this plan");
+	else
+		error("Cannot create this plan");
 };
 	const string AddPlan::toString() const {
 		return "Plan " + settlementName + " " + selectionPolicy + " " + actionStatusToString(getStatus()) ;
