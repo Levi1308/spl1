@@ -38,6 +38,9 @@ class Plan {
         const int getUnderunderConstructionLQS() const;
         const int getUnderunderConstructionECS() const;
         const int getUnderunderConstructionENS() const;
+        void setLifeQualityScore(int addL);
+        void setEconomyScore(int addEc);
+        void setEnvironmentScore(int addEn);
 
     private:
         int plan_id;
