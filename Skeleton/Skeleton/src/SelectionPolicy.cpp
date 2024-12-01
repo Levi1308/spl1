@@ -41,7 +41,7 @@ BalancedSelection:: BalancedSelection(int BLifeQualityScore, int BEconomyScore, 
 
 // Copy Constructor for BalancedSelection
 BalancedSelection::BalancedSelection(const BalancedSelection &other)
-: LifeQualityScore(other.LifeQualityScore), EconomyScore(other.EconomyScore), EnvironmentScore(other.EnvironmentScore){}
+: LifeQualityScore(other.LifeQualityScore), EconomyScore(other.EconomyScore), EnvironmentScore(other.EnvironmentScore) {}
 
 // other methods for BalancedSelection
 const string BalancedSelection::toString() const{
@@ -55,9 +55,9 @@ int IBselection = 0;
 int Bdistance;
 
 for (int i = 0; i < int (facilitiesOptions.size()); i++ ){
-    int Lscore = facilitiesOptions[i].getLifeQualityScore()+LifeQualityScore;
-    int Ecscore = facilitiesOptions[i].getEconomyScore()+EconomyScore;
-    int Envscore = facilitiesOptions[i].getEnvironmentScore()+EnvironmentScore;
+    int Lscore = facilitiesOptions[i].getLifeQualityScore()+ LifeQualityScore;
+    int Ecscore = facilitiesOptions[i].getEconomyScore()+ EconomyScore;
+    int Envscore = facilitiesOptions[i].getEnvironmentScore()+ EnvironmentScore;
     int Idistance =  CloseDistance(Lscore,Ecscore,Envscore);
     if( Idistance == 0 )
         return facilitiesOptions[i];
@@ -71,6 +71,9 @@ for (int i = 0; i < int (facilitiesOptions.size()); i++ ){
         }
     }
 }
+LifeQualityScore = facilitiesOptions[IBselection].getLifeQualityScore() + LifeQualityScore;
+EconomyScore = facilitiesOptions[IBselection].getEconomyScore() + EconomyScore;
+EnvironmentScore = facilitiesOptions[IBselection].getEnvironmentScore() + EnvironmentScore;
 return facilitiesOptions[IBselection];
 };
 int SelectionPolicy::CloseDistance(int x,int y,int z){
@@ -82,6 +85,8 @@ int SelectionPolicy::CloseDistance(int x,int y,int z){
 const string BalancedSelection::Nickname() const {
     return "bal";
 }
+
+
 
 //Constructor of EconomySelection
 EconomySelection:: EconomySelection()
