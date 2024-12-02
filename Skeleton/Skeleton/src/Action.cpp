@@ -13,7 +13,7 @@
 class Simulation;
 //BaseAction Class
 BaseAction::BaseAction()
-:errorMsg(""),status()
+:errorMsg(""),status(ActionStatus::ERROR)
 {}
 
 ActionStatus BaseAction::getStatus() const {
@@ -99,14 +99,13 @@ AddFacility::AddFacility(const string& AfacilityName, const FacilityCategory Afa
 
 void AddFacility::act(Simulation& simulation) {
     FacilityType F(facilityName, facilityCategory, price, lifeQualityScore, economyScore, environmentScore);
-    if (simulation.addFacility(F) == false) {
+    if (!simulation.addFacility(F)) {
         error("Facility already exists");
+        return;
     }
-    else {
-        complete();
-    }
-     
+    complete();
 }
+
 
 AddFacility* AddFacility::clone() const {
     return new AddFacility(*this);
@@ -154,10 +153,12 @@ const string AddFacility::toString() const {
             std::cout << "No plans logged yet." << std::endl;
         }
         for (Plan p : plans) {
-             p.printStatus();
+			if(p.getId() !=-1){
+                p.printStatus();
+			}
         }
         simulation.close();
-        complete();
+
     }
     Close* Close::clone() const {
         return new Close();
@@ -244,11 +245,11 @@ PrintPlanStatus::PrintPlanStatus(int planId)
 };
 void PrintPlanStatus::act(Simulation& simulation) {
 	Plan p =simulation.getPlan(planId);
-		if (p.getId() != -1)
-		{
+	if (p.getId() != -1)
+	{
 		p.printStatus();
 		complete();
-		}
+	}
 	else
 		error("Plan doesn't exist");
 };
@@ -268,18 +269,18 @@ ChangePlanPolicy::ChangePlanPolicy(const int planId, const string& newPolicy)
 };
 void ChangePlanPolicy::act(Simulation& simulation) {
 	Plan p = simulation.getPlan(planId);
-		if (p.getId() != -1)
-	{
-	if (p.getId() != -1 && p.CheckPolicy(newPolicy))
+	 if (p.getId() != -1 && !p.CheckPolicy(newPolicy))
 	{
 		simulation.setPlanPolicy(planId, newPolicy);
 		std::cout<<"planID: " + std::to_string(p.getId())<< std::endl;
 		std::cout<<"prviousPolicy: " + p.getSelectionPolicy()->toString()<<std::endl;
 		std::cout<<"newPolicy: " + newPolicy;
 		complete();
+    } 
+	else if(p.getId() == -1 || p.CheckPolicy(newPolicy)){
+       error("Cannot change selection policy");
 	}
-	}
-	error("Cannot change selection policy");
+	
 };
 ChangePlanPolicy* ChangePlanPolicy::clone() const {
 	return new ChangePlanPolicy(planId, newPolicy);
@@ -319,5 +320,5 @@ RestoreSimulation* RestoreSimulation::clone() const {
 	return new RestoreSimulation();
 }
 const string RestoreSimulation::toString() const {
-	return "Restore Simulation" + actionStatusToString(getStatus());
+	return "Restore Simulation " + actionStatusToString(getStatus());
 };
