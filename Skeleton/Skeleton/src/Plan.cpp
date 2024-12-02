@@ -115,19 +115,26 @@ void Plan::step() {
             underConstruction.push_back(F);
         }
     }
-    for (auto it = underConstruction.begin(); it != underConstruction.end();) {
-        if ((*it)->step() == FacilityStatus::OPERATIONAL) {
-            addFacility(*it);
-            setLifeQualityScore((*it)->getLifeQualityScore());
-            setEconomyScore((*it)->getEconomyScore());
-            setEnvironmentScore((*it)->getEnvironmentScore());
-            delete* it;  
-            it = underConstruction.erase(it); 
-        }
-        else {
-            it++;  
+    std::vector<Facility*> toRemove;
+
+    for (Facility* facility : underConstruction) {
+        if (facility->step() == FacilityStatus::OPERATIONAL) {
+            addFacility(facility);
+            setLifeQualityScore(facility->getLifeQualityScore());
+            setEconomyScore(facility->getEconomyScore());
+            setEnvironmentScore(facility->getEnvironmentScore());
+            if (getSelectionPolicy()->Nickname() == "bal") {
+                selectionPolicy->setScores(facility->getLifeQualityScore(), facility->getEconomyScore(), facility->getEnvironmentScore());
+            }
+            delete facility;
+            toRemove.push_back(facility);
         }
     }
+
+    for (Facility* facility : toRemove) {
+        underConstruction.erase(std::remove(underConstruction.begin(), underConstruction.end(), facility), underConstruction.end());
+    }
+
     if ( (int) (underConstruction.size()) < (int) (settlement.getType()))
         setPlanStatus(PlanStatus::AVALIABLE);
     else{

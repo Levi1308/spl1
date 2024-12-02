@@ -11,6 +11,7 @@ class SelectionPolicy {
         virtual SelectionPolicy* clone() const = 0;
         virtual ~SelectionPolicy() = default;
         int CloseDistance(int x,int y,int z);
+        void setScores(int LifeQualityScore, int EconomyScore, int EnvironmentScore);
 };
 
 class NaiveSelection: public SelectionPolicy {
@@ -33,6 +34,7 @@ class BalancedSelection: public SelectionPolicy {
         const string toString() const override;
         const string Nickname() const override;
         BalancedSelection *clone() const override;
+        void setScores(int LifeQualityScore, int EconomyScore, int EnvironmentScore);
     private:
         int LifeQualityScore;
         int EconomyScore;
