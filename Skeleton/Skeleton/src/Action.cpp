@@ -113,7 +113,7 @@ AddFacility* AddFacility::clone() const {
 }
 
 const string AddFacility::toString() const {
-    return "Facility " + facilityName + facilityCategoryToString (facilityCategory) + " " +
+    return "Facility " + facilityName + " " + facilityCategoryToString (facilityCategory) + " " +
 	 std::to_string(price) + " " + std::to_string(lifeQualityScore) + " " +
 	 std::to_string(economyScore) + " " + std::to_string(environmentScore) + " " + actionStatusToString(getStatus());
 }
