@@ -11,12 +11,13 @@
 
     };
     Settlement::Settlement(const Settlement& other)
-        :name(other.name), type(other.type) {
+        :name(other.name), type(other.type),valid(other.valid) {
     };
     Settlement& Settlement::operator= (const Settlement& other){
         if(this!=&other)
         {
             type=other.type;
+            valid=other.valid;
         }
         return *this;
     }

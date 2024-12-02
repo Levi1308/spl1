@@ -11,7 +11,7 @@ class SelectionPolicy {
         virtual SelectionPolicy* clone() const = 0;
         virtual ~SelectionPolicy() = default;
         int CloseDistance(int x,int y,int z);
-        void setScores(int LifeQualityScore, int EconomyScore, int EnvironmentScore);
+        virtual void setScores(int LifeQualityScore, int EconomyScore, int EnvironmentScore)=0;
 };
 
 class NaiveSelection: public SelectionPolicy {
@@ -22,6 +22,7 @@ class NaiveSelection: public SelectionPolicy {
         const string toString() const override;
         const string Nickname() const override;
         NaiveSelection *clone() const override;
+        void setScores(int LifeQualityScore, int EconomyScore, int EnvironmentScore);
     private:
         int lastSelectedIndex;
 };
@@ -49,6 +50,7 @@ class EconomySelection: public SelectionPolicy {
         const string toString() const override;
         const string Nickname() const override;
         EconomySelection *clone() const override;
+        void setScores(int LifeQualityScore, int EconomyScore, int EnvironmentScore);
     private:
         int lastSelectedIndex;
 
@@ -62,6 +64,7 @@ class SustainabilitySelection: public SelectionPolicy {
         const string toString() const override;
         const string Nickname() const ;
         SustainabilitySelection *clone() const override;
+        void setScores(int LifeQualityScore, int EconomyScore, int EnvironmentScore);
     private:
         int lastSelectedIndex;
 };

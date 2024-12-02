@@ -32,6 +32,9 @@ return facilitiesOptions[lastSelectedIndex];};
 const string NaiveSelection::Nickname() const {
     return "nve";
 }
+void NaiveSelection::setScores(int LifeQualityScore, int EconomyScore, int EnvironmentScore){
+
+}
 
 
 
@@ -119,7 +122,9 @@ for(int i = lastSelectedIndex + 1 ; i < int (facilitiesOptions.size()); i++){
 return facilitiesOptions[lastSelectedIndex];
 
 };
-
+void EconomySelection::setScores(int LifeQualityScore, int EconomyScore, int EnvironmentScore){
+    
+}
 
 const string EconomySelection::Nickname() const {
     return "eco";
@@ -154,6 +159,7 @@ return facilitiesOptions[lastSelectedIndex];
 const string SustainabilitySelection::Nickname() const {
     return "env";
 }
-
-
+void SustainabilitySelection::setScores(int LifeQualityScore, int EconomyScore, int EnvironmentScore){
+    
+}
 

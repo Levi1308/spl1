@@ -54,13 +54,13 @@ std::string facilityCategoryToString(FacilityCategory category) {
 std::string settlementTypeToNumberString(SettlementType type) {
     switch (type) {
         case SettlementType::VILLAGE:
-            return "1";
+            return "0";
         case SettlementType::CITY:
-            return "2";
+            return "1";
         case SettlementType::METROPOLIS:
-            return "3";
+            return "2";
         default:
-            return "0"; // Default value for unknown types
+            return "-1"; // Default value for unknown types
     }
 }
 
@@ -168,6 +168,10 @@ const string AddFacility::toString() const {
 
 
 //AddSettlement Class
+AddSettlement::AddSettlement(const string& settlementName, SettlementType settlementType)
+	:settlementName(settlementName), settlementType(settlementType)
+{
+};
 void AddSettlement::act(Simulation& simulation) {
 	if (!simulation.isSettlementExists(settlementName))
 	{
@@ -186,10 +190,7 @@ const string AddSettlement::toString() const {
 AddSettlement* AddSettlement::clone() const{
 	return new AddSettlement(settlementName, settlementType);
 }
-AddSettlement::AddSettlement(const string& settlementName, SettlementType settlementType)
-	:settlementName(settlementName), settlementType(settlementType)
-{
-};
+
 
 
 //AddPlan Class
@@ -242,7 +243,7 @@ PrintPlanStatus::PrintPlanStatus(int planId)
 
 };
 void PrintPlanStatus::act(Simulation& simulation) {
-	Plan p = simulation.getPlan(planId);
+	Plan p =simulation.getPlan(planId);
 		if (p.getId() != -1)
 		{
 		p.printStatus();

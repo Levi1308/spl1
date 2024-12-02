@@ -27,7 +27,6 @@ Simulation::Simulation(const string& configFilePath)
         if (args.empty() || args[0][0] == '#') {
             continue; 
         }
-
         const std::string& command = args[0];
 
         if (command == "settlement") {
@@ -159,7 +158,8 @@ Simulation& Simulation::operator=(Simulation&& other) noexcept {
 
 
 void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectionPolicy) {
-	plans.push_back(Plan(planCounter++, settlement, selectionPolicy, facilitiesOptions));
+	Plan p (planCounter++,settlement,selectionPolicy,facilitiesOptions);
+    plans.push_back(p);
 }
 
 
@@ -230,13 +230,11 @@ void Simulation::start() {
 			std::string userInput;
 			std::getline(std::cin, userInput);
 			vector<string> args = Auxiliary::parseArguments(userInput);
-
             if (args.empty()) {
               continue; 
-        }
-
+            }
+        
         const std::string& command = args[0];
-
 		if(command == "close"){
 			Close c = Close();
             c.act(*this);
@@ -300,9 +298,9 @@ void Simulation::start() {
             actionsLog.push_back(CPP);
         }
 
-
+    
 	}
-}
+};
 
 const vector<BaseAction*>& Simulation::getActionLog() const {
 	return actionsLog;
@@ -325,7 +323,7 @@ Plan& Simulation::getPlan(int planID) {
         }
     }
    return falsePlan;
-}
+};
 
 void Simulation::setPlanPolicy(int planId, const string& newPolicy){
 	Plan p= getPlan(planId);
@@ -344,7 +342,7 @@ void Simulation::setPlanPolicy(int planId, const string& newPolicy){
 		p.setSelectionPolicy(new SustainabilitySelection());
 	}
     }
-}
+};
 
 Simulation* Simulation::getBackup(){
     return backup;

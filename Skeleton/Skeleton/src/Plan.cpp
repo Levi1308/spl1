@@ -124,7 +124,7 @@ void Plan::step() {
             setEconomyScore(facility->getEconomyScore());
             setEnvironmentScore(facility->getEnvironmentScore());
             if (getSelectionPolicy()->Nickname() == "bal") {
-                selectionPolicy->setScores(facility->getLifeQualityScore(), facility->getEconomyScore(), facility->getEnvironmentScore());
+                //selectionPolicy->setScores(facility->getLifeQualityScore(), facility->getEconomyScore(), facility->getEnvironmentScore());
             }
             delete facility;
             toRemove.push_back(facility);
