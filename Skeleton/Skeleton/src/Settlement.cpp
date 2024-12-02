@@ -35,6 +35,6 @@
         }
 
     };
-    bool Settlement::Valid() const{
+    bool Settlement::Valid(){
         return valid;
     }

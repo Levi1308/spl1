@@ -23,10 +23,10 @@ class Settlement {
         const string &getName() const;
         SettlementType getType() const;
         const string toString() const;
-        bool Valid() const;
+        bool Valid();
 
         private:
             const string name;
             SettlementType type;
-            bool valid=true;
+            bool valid;
 };

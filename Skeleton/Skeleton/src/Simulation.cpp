@@ -41,15 +41,13 @@ Simulation::Simulation(const string& configFilePath)
             int lifeQuality  = std::stoi(args[4]);
             int economy = std::stoi(args[5]);
             int environment  = std::stoi(args[6]);
-
-             facilitiesOptions.emplace_back(name, category, price, lifeQuality, economy, environment);
+            facilitiesOptions.emplace_back(name, category, price, lifeQuality, economy, environment);
         } else if (command == "plan") {
             const std::string& settlementName = args[1];
             const std::string& policy = args[2];
-
-            Settlement& settlement = getSettlement(settlementName);
-            SelectionPolicy* selectionPolicy = nullptr;
-
+            if(isSettlementExists(settlementName)){
+                Settlement settlement = getSettlement(settlementName);
+                SelectionPolicy* selectionPolicy = nullptr;
             if (policy == "eco") {
                 selectionPolicy = new EconomySelection();
             } else if (policy == "bal") {
@@ -60,8 +58,9 @@ Simulation::Simulation(const string& configFilePath)
                 selectionPolicy = new NaiveSelection();
             }
 
-             if (selectionPolicy) {
+            if (selectionPolicy!=nullptr) {
                 addPlan(settlement, selectionPolicy);
+                }
             }
         }
     }
@@ -178,7 +177,7 @@ bool Simulation::isSettlementExists(const string& settlementName) {
 	return false;
 }
 
-Settlement& Simulation::getSettlement(const std::string& settlementName) {
+Settlement Simulation::getSettlement(const std::string& settlementName) {
     for (Settlement* settlement : settlements) {
         if (settlement->getName() == settlementName) {
             return *settlement;
