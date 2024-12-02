@@ -70,6 +70,8 @@ Plan& Plan::operator=(const Plan& other) {
     return *this;
 };
 
+
+
 const int Plan::getEconomyScore() const {
     return economy_score;
 }
@@ -110,10 +112,9 @@ void Plan::printStatus() {
 }
 
 void Plan::step() {
-    if (getPlanStatus() == PlanStatus::AVALIABLE) {
-        while ((int)(settlement.getType()) >= (int)(underConstruction.size())) {
-            auto* F = new Facility(getSelectionPolicy()->selectFacility(facilityOptions), settlement.getName());
-            assert(F != nullptr && "Failed to create a Facility");
+    if (getPlanStatus()==PlanStatus::AVALIABLE) {
+        while ( (int) (settlement.getType()) >= (int) (underConstruction.size()) ) {
+            Facility* F = new Facility(getSelectionPolicy()->selectFacility(facilityOptions), settlement.getName());
             underConstruction.push_back(F);
         }
     }
@@ -127,18 +128,20 @@ void Plan::step() {
             setLifeQualityScore(facility->getLifeQualityScore());
             setEconomyScore(facility->getEconomyScore());
             setEnvironmentScore(facility->getEnvironmentScore());
+            if (getSelectionPolicy()->Nickname() == "bal") {
+                selectionPolicy->setScores(facility->getLifeQualityScore(), facility->getEconomyScore(), facility->getEnvironmentScore());
+            }
             toRemove.push_back(facility);
+            
         }
     }
 
     for (Facility* facility : toRemove) {
-        underConstruction.erase(
-            std::remove(underConstruction.begin(), underConstruction.end(), facility),
-            underConstruction.end());
-        delete facility; // Ensure memory is freed.
+        underConstruction.erase(std::remove(underConstruction.begin(), underConstruction.end(), facility), underConstruction.end());
+        delete facility;
     }
 
-    if ((int)(underConstruction.size()) < (int)(settlement.getType()))
+    if ( (int) (underConstruction.size()) <= (int) (settlement.getType()))
         setPlanStatus(PlanStatus::AVALIABLE);
     else
         setPlanStatus(PlanStatus::BUSY);
@@ -193,9 +196,9 @@ Plan::Plan(int plan_id)
     environment_score(0) {
 };
 bool Plan::CheckPolicy(string newpolicy) {
-    if (newpolicy==selectionPolicy->Nickname())
-        return false;
-    return true;
+    if ((newpolicy == selectionPolicy->Nickname()))
+        return true;
+    return false;
 }
 
 Plan::Plan()

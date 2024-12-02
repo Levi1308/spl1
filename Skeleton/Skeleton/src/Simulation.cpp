@@ -67,6 +67,7 @@ Simulation::Simulation(const string& configFilePath)
     configFile.close();
 }
 
+
 //Rule of 5
 Simulation::Simulation(const Simulation& other)
 	: isRunning(other.isRunning),
@@ -315,6 +316,9 @@ const vector<Plan>& Simulation::getPlans() const {
 }
 
 void Simulation::BackUp() {
+    if(backup !=nullptr){
+        delete backup;
+    }
 	backup = new Simulation(*this);
 }
 void Simulation::Restore() {
@@ -323,22 +327,20 @@ void Simulation::Restore() {
     } 
 }
 Plan& Simulation::getPlan(int planID) {
-    for (Plan& plan : plans) {
-        if (plan.getId() == planID) {
-            return plan;
-        }
+    if (planID == -1) {
+        return falsePlan;
     }
-   return falsePlan;
+    return plans[planID];
 };
 
-void Simulation::setPlanPolicy(Plan p,string newPolicy){
-    if(p.getId()!=-1)
-    {
+
+void Simulation::setPlanPolicy(int planId, const string& newPolicy){
+	Plan p= getPlan(planId);
 	if (newPolicy == "nve") {
 		p.setSelectionPolicy(new NaiveSelection());
 	}
 	else if (newPolicy == "bal") {
-		p.setSelectionPolicy(new BalancedSelection(p.getlifeQualityScore() + p.getUnderunderConstructionLQS() ,p.getEconomyScore() + p.getUnderunderConstructionECS(),p.getEnvironmentScore()+ p.getUnderunderConstructionENS()));
+		p.setSelectionPolicy(new BalancedSelection( p.getUnderunderConstructionLQS() , p.getUnderunderConstructionECS(), p.getUnderunderConstructionENS()));
 	}
 	else if (newPolicy == "eco") {
 		p.setSelectionPolicy(new EconomySelection());
@@ -346,7 +348,7 @@ void Simulation::setPlanPolicy(Plan p,string newPolicy){
 	else if (newPolicy == "env") {
 		p.setSelectionPolicy(new SustainabilitySelection());
 	}
-    }
+    plans[planId] = p;
 };
 
 Simulation* Simulation::getBackup(){

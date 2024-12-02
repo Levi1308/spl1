@@ -28,7 +28,7 @@ public:
     bool isSettlementExists(const string& settlementName);
     Settlement getSettlement(const string& settlementName);
     Plan& getPlan(const int planID);
-    void setPlanPolicy(Plan p,string newPolicy);
+    void setPlanPolicy(int planId, const string& newPolicy);
     const vector<BaseAction*>& getActionLog() const;
     const vector<Plan>& getPlans() const;
     void BackUp();
