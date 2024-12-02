@@ -13,7 +13,7 @@
 
 Simulation::Simulation(const string& configFilePath)
     : isRunning(false), planCounter(0), actionsLog(), plans(), settlements(), facilitiesOptions()
-    ,falseSettlement("",SettlementType::CITY,false),falsePlan(-1) {
+    ,falseSettlement("",SettlementType::CITY),falsePlan(-1) {
 
     std::ifstream configFile(configFilePath);
     if (!configFile.is_open()) {
@@ -46,6 +46,7 @@ Simulation::Simulation(const string& configFilePath)
             const std::string& policy = args[2];
             if(isSettlementExists(settlementName)){
                 Settlement settlement = getSettlement(settlementName);
+                std::cout<<settlement.toString()<<std::endl;
                 SelectionPolicy* selectionPolicy = nullptr;
             if (policy == "eco") {
                 selectionPolicy = new EconomySelection();
@@ -56,7 +57,7 @@ Simulation::Simulation(const string& configFilePath)
             } else if (policy == "nve") {
                 selectionPolicy = new NaiveSelection();
             }
-
+            std::cout<<selectionPolicy->toString()<<std::endl;
             if (selectionPolicy!=nullptr) {
                 addPlan(settlement, selectionPolicy);
                 }
@@ -158,8 +159,11 @@ Simulation& Simulation::operator=(Simulation&& other) noexcept {
 
 
 void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectionPolicy) {
-	Plan p (planCounter++,settlement,selectionPolicy,facilitiesOptions);
+	Plan p (planCounter,settlement,selectionPolicy,facilitiesOptions);
     plans.push_back(p);
+    std::cout<<p.toString()<<std::endl;
+    planCounter++;
+
 }
 
 
@@ -314,7 +318,9 @@ void Simulation::BackUp() {
 	backup = new Simulation(*this);
 }
 void Simulation::Restore() {
-	*this = *backup;
+	if (backup!=nullptr) {
+        *this = *backup;
+    } 
 }
 Plan& Simulation::getPlan(int planID) {
     for (Plan& plan : plans) {
@@ -325,8 +331,7 @@ Plan& Simulation::getPlan(int planID) {
    return falsePlan;
 };
 
-void Simulation::setPlanPolicy(int planId, const string& newPolicy){
-	Plan p= getPlan(planId);
+void Simulation::setPlanPolicy(Plan p,string newPolicy){
     if(p.getId()!=-1)
     {
 	if (newPolicy == "nve") {
@@ -347,3 +352,17 @@ void Simulation::setPlanPolicy(int planId, const string& newPolicy){
 Simulation* Simulation::getBackup(){
     return backup;
 };
+void Simulation::print(){
+    for(Settlement* s:settlements)
+    {
+        std::cout<<s->toString()<<std::endl;
+    }
+    for(Plan p:plans)
+    {
+       p.printStatus();
+    }
+    for(FacilityType f:facilitiesOptions)
+    {
+        std::cout<<f.getName()<<std::endl;
+    }
+}

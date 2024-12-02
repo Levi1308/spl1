@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm> // For std::find
 #include <string>
+#include <cassert>
 
 Plan::Plan(const int planId, const Settlement& settlement,
     SelectionPolicy* selectionPolicy, const std::vector<FacilityType>& facilityOptions)
@@ -93,8 +94,8 @@ const std::string Plan::getStringStatus() const {
 }
 
 void Plan::printStatus() {
-    std::cout << "Plan ID: " << plan_id <<std::endl;
-    std::cout<<"Settlement Name: " << settlement.getName() << std::endl;
+    std::cout << "Plan ID: " + std::to_string(plan_id) <<std::endl;
+    std::cout<<"Settlement Name: " << settlement.getName()  << std::endl;
     std::cout << "PlanStatus: " << getStringStatus() << std::endl;
     std::cout << "SelectionPolicy: " << selectionPolicy->toString()<< std::endl;
     std::cout << "LifeQualityScore: " << getlifeQualityScore() << std::endl;
@@ -109,42 +110,43 @@ void Plan::printStatus() {
 }
 
 void Plan::step() {
-    if (getPlanStatus()==PlanStatus::AVALIABLE) {
-        while ( (int) (settlement.getType()) >= (int) (underConstruction.size())) {
-            Facility* F = new Facility(getSelectionPolicy()->selectFacility(facilityOptions), settlement.getName());
+    if (getPlanStatus() == PlanStatus::AVALIABLE) {
+        while ((int)(settlement.getType()) >= (int)(underConstruction.size())) {
+            auto* F = new Facility(getSelectionPolicy()->selectFacility(facilityOptions), settlement.getName());
+            assert(F != nullptr && "Failed to create a Facility");
             underConstruction.push_back(F);
         }
     }
+
     std::vector<Facility*> toRemove;
 
     for (Facility* facility : underConstruction) {
+        assert(facility != nullptr && "Invalid Facility in underConstruction");
         if (facility->step() == FacilityStatus::OPERATIONAL) {
             addFacility(facility);
             setLifeQualityScore(facility->getLifeQualityScore());
             setEconomyScore(facility->getEconomyScore());
             setEnvironmentScore(facility->getEnvironmentScore());
-            if (getSelectionPolicy()->Nickname() == "bal") {
-                //selectionPolicy->setScores(facility->getLifeQualityScore(), facility->getEconomyScore(), facility->getEnvironmentScore());
-            }
-            delete facility;
             toRemove.push_back(facility);
         }
     }
 
     for (Facility* facility : toRemove) {
-        underConstruction.erase(std::remove(underConstruction.begin(), underConstruction.end(), facility), underConstruction.end());
+        underConstruction.erase(
+            std::remove(underConstruction.begin(), underConstruction.end(), facility),
+            underConstruction.end());
+        delete facility; // Ensure memory is freed.
     }
 
-    if ( (int) (underConstruction.size()) < (int) (settlement.getType()))
+    if ((int)(underConstruction.size()) < (int)(settlement.getType()))
         setPlanStatus(PlanStatus::AVALIABLE);
-    else{
+    else
         setPlanStatus(PlanStatus::BUSY);
-    }
 }
 
-const std::string Plan::toString() const {
-    std::string result = "Plan ID: " + std::to_string(plan_id) + "\n";
-    result += "Settlement: " + settlement.getName() + "\n"; // Assuming Settlement has getName()
+const string Plan::toString() const {
+    string result = "Plan ID: " +std::to_string(plan_id);
+    result += "\nSettlement: " + settlement.getName() + "\n"; // Assuming Settlement has getName()
     result += "Life Quality Score: " + std::to_string(life_quality_score) + "\n";
     result += "Economy Score: " + std::to_string(economy_score) + "\n";
     result += "Environment Score: " + std::to_string(environment_score) + "\n";
@@ -191,9 +193,9 @@ Plan::Plan(int plan_id)
     environment_score(0) {
 };
 bool Plan::CheckPolicy(string newpolicy) {
-    if (!(newpolicy == selectionPolicy->Nickname()))
-        return true;
-    return false;
+    if (newpolicy==selectionPolicy->Nickname())
+        return false;
+    return true;
 }
 
 Plan::Plan()

@@ -173,7 +173,7 @@ AddSettlement::AddSettlement(const string& settlementName, SettlementType settle
 {
 };
 void AddSettlement::act(Simulation& simulation) {
-	if (!simulation.isSettlementExists(settlementName))
+	if (!simulation.isSettlementExists(settlementName) && settlementType!=SettlementType::DEFAULT)
 	{
 		Settlement* s = new Settlement(settlementName, settlementType);
 		if(simulation.addSettlement(s))
@@ -267,19 +267,23 @@ ChangePlanPolicy::ChangePlanPolicy(const int planId, const string& newPolicy)
 
 };
 void ChangePlanPolicy::act(Simulation& simulation) {
-	Plan p = simulation.getPlan(planId);
-		if (p.getId() != -1)
+	Plan& p = simulation.getPlan(planId);
+	if (p.getId() != -1)
 	{
-	if (p.getId() != -1 && p.CheckPolicy(newPolicy))
-	{
-		simulation.setPlanPolicy(planId, newPolicy);
+		if (p.CheckPolicy(newPolicy))
+		{
+		string prevPolicy=p.getSelectionPolicy()->Nickname();
+		simulation.setPlanPolicy(p, newPolicy);
 		std::cout<<"planID: " + std::to_string(p.getId())<< std::endl;
-		std::cout<<"prviousPolicy: " + p.getSelectionPolicy()->toString()<<std::endl;
-		std::cout<<"newPolicy: " + newPolicy;
+		std::cout<<"previousPolicy: " + prevPolicy<<std::endl;
+		std::cout<<"newPolicy: " + p.getSelectionPolicy()->toString()<<std::endl;
 		complete();
+		}
+		else
+			error("Cannot change selection policy");
 	}
-	}
-	error("Cannot change selection policy");
+	else
+		error("Cannot change selection policy");
 };
 ChangePlanPolicy* ChangePlanPolicy::clone() const {
 	return new ChangePlanPolicy(planId, newPolicy);

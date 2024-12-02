@@ -10,12 +10,12 @@ enum class SettlementType {
     VILLAGE=0,
     CITY=1,
     METROPOLIS=2,
+    DEFAULT
 };
 
 class Settlement {
     public:
         Settlement(const string &name, SettlementType type);
-        Settlement(const string &name, SettlementType type,bool notvalid);
         Settlement() =default;
         Settlement(const Settlement& other);
         ~Settlement() = default;
@@ -23,10 +23,8 @@ class Settlement {
         const string &getName() const;
         SettlementType getType() const;
         const string toString() const;
-        bool Valid();
 
         private:
             const string name;
             SettlementType type;
-            bool valid;
 };

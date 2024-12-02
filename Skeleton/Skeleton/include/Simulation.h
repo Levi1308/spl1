@@ -28,7 +28,7 @@ public:
     bool isSettlementExists(const string& settlementName);
     Settlement getSettlement(const string& settlementName);
     Plan& getPlan(const int planID);
-    void setPlanPolicy(int planId, const string& newPolicy);
+    void setPlanPolicy(Plan p,string newPolicy);
     const vector<BaseAction*>& getActionLog() const;
     const vector<Plan>& getPlans() const;
     void BackUp();
@@ -37,6 +37,7 @@ public:
     void close();
     void open();
     Simulation* getBackup();
+    void print();
 
 private:
     bool isRunning;
@@ -47,5 +48,6 @@ private:
     std::vector<FacilityType> facilitiesOptions;
     Settlement falseSettlement;
     Plan falsePlan;
+     
 };
-extern Simulation* backup;
+    extern Simulation* backup;
