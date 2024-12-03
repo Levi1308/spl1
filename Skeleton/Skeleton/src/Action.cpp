@@ -154,7 +154,7 @@ const string AddFacility::toString() const {
         }
         for (Plan p : plans) {
 			if(p.getId() !=-1){
-                p.printStatus();
+                p.printClose();
 			}
         }
         simulation.close();

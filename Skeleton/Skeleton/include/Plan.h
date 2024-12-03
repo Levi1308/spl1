@@ -41,6 +41,7 @@ class Plan {
         void setLifeQualityScore(int addL);
         void setEconomyScore(int addEc);
         void setEnvironmentScore(int addEn);
+        void printClose();
 
     private:
         int plan_id;
