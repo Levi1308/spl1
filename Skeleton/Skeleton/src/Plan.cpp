@@ -111,6 +111,16 @@ void Plan::printStatus() {
     }
 }
 
+void Plan::printClose(){
+    std::cout << "Plan ID: " + std::to_string(plan_id) <<std::endl;
+    std::cout<<"Settlement Name: " << settlement.getName()  << std::endl;
+    std::cout << "PlanStatus: " << getStringStatus() << std::endl;
+    std::cout << "SelectionPolicy: " << selectionPolicy->toString()<< std::endl;
+    std::cout << "LifeQualityScore: " << getlifeQualityScore() << std::endl;
+    std::cout << "EconomyScore: " << getEconomyScore() << std::endl;
+    std::cout << "EnvironmentScore: " << getEnvironmentScore() << std::endl;
+}
+
 void Plan::step() {
     if (getPlanStatus()==PlanStatus::AVALIABLE) {
         while ( (int) (settlement.getType()) >= (int) (underConstruction.size()) ) {
@@ -119,7 +129,7 @@ void Plan::step() {
         }
     }
 
-    std::vector<Facility*> toRemove;
+   std::vector<Facility*> toRemove;
 
     for (Facility* facility : underConstruction) {
         assert(facility != nullptr && "Invalid Facility in underConstruction");
@@ -138,7 +148,7 @@ void Plan::step() {
 
     for (Facility* facility : toRemove) {
         underConstruction.erase(std::remove(underConstruction.begin(), underConstruction.end(), facility), underConstruction.end());
-        delete facility;
+      ///  delete facility;
     }
 
     if ( (int) (underConstruction.size()) <= (int) (settlement.getType()))
@@ -146,7 +156,6 @@ void Plan::step() {
     else
         setPlanStatus(PlanStatus::BUSY);
 }
-
 const string Plan::toString() const {
     string result = "Plan ID: " +std::to_string(plan_id);
     result += "\nSettlement: " + settlement.getName() + "\n"; // Assuming Settlement has getName()
