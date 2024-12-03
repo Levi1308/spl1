@@ -46,7 +46,6 @@ Simulation::Simulation(const string& configFilePath)
             const std::string& policy = args[2];
             if(isSettlementExists(settlementName)){
                 Settlement& settlement = getSettlement(settlementName);
-                std::cout<<settlement.toString()<<std::endl;
                 SelectionPolicy* selectionPolicy = nullptr;
             if (policy == "eco") {
                 selectionPolicy = new EconomySelection();
@@ -57,7 +56,6 @@ Simulation::Simulation(const string& configFilePath)
             } else if (policy == "nve") {
                 selectionPolicy = new NaiveSelection();
             }
-            std::cout<<selectionPolicy->toString()<<std::endl;
             if (selectionPolicy!=nullptr) {
                 addPlan(settlement, selectionPolicy);
                 }
@@ -162,7 +160,6 @@ Simulation& Simulation::operator=(Simulation&& other) noexcept {
 void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectionPolicy) {
 	Plan p (planCounter,settlement,selectionPolicy,facilitiesOptions);
     plans.push_back(p);
-    std::cout<<p.toString()<<std::endl;
     planCounter++;
 
 }
@@ -349,17 +346,3 @@ void Simulation::setPlanPolicy(int planId, const string& newPolicy){
 Simulation* Simulation::getBackup(){
     return backup;
 };
-void Simulation::print(){
-    for(Settlement* s:settlements)
-    {
-        std::cout<<s->toString()<<std::endl;
-    }
-    for(Plan p:plans)
-    {
-       p.printStatus();
-    }
-    for(FacilityType f:facilitiesOptions)
-    {
-        std::cout<<f.getName()<<std::endl;
-    }
-}
