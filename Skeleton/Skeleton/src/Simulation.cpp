@@ -45,7 +45,7 @@ Simulation::Simulation(const string& configFilePath)
             const std::string& settlementName = args[1];
             const std::string& policy = args[2];
             if(isSettlementExists(settlementName)){
-                Settlement settlement = getSettlement(settlementName);
+                Settlement& settlement = getSettlement(settlementName);
                 std::cout<<settlement.toString()<<std::endl;
                 SelectionPolicy* selectionPolicy = nullptr;
             if (policy == "eco") {
@@ -64,7 +64,7 @@ Simulation::Simulation(const string& configFilePath)
             }
         }
     }
-    configFile.close();
+    //configFile.close();
 }
 
 
@@ -182,7 +182,7 @@ bool Simulation::isSettlementExists(const string& settlementName) {
 	return false;
 }
 
-Settlement Simulation::getSettlement(const std::string& settlementName) {
+Settlement& Simulation::getSettlement(const std::string& settlementName) {
     for (Settlement* settlement : settlements) {
         if (settlement->getName() == settlementName) {
             return *settlement;

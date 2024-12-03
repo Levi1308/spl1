@@ -204,7 +204,7 @@ void AddPlan::act(Simulation& simulation) {
 	bool ans=simulation.isSettlementExists(settlementName);
 	if (ans)
 	{
-		Settlement s=simulation.getSettlement(settlementName);
+		Settlement& s=simulation.getSettlement(settlementName);
 		if (selectionPolicy == "nve") {
 			simulation.addPlan(s, new NaiveSelection());
 			complete();
