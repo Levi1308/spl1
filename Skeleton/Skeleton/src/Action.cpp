@@ -204,7 +204,7 @@ void AddPlan::act(Simulation& simulation) {
 	bool ans=simulation.isSettlementExists(settlementName);
 	if (ans)
 	{
-		Settlement s=simulation.getSettlement(settlementName);
+		Settlement& s=simulation.getSettlement(settlementName);
 		if (selectionPolicy == "nve") {
 			simulation.addPlan(s, new NaiveSelection());
 			complete();
@@ -273,8 +273,8 @@ void ChangePlanPolicy::act(Simulation& simulation) {
 	{
 		simulation.setPlanPolicy(planId, newPolicy);
 		std::cout<<"planID: " + std::to_string(p.getId())<< std::endl;
-		std::cout<<"prviousPolicy: " + p.getSelectionPolicy()->toString()<<std::endl;
-		std::cout<<"newPolicy: " + newPolicy;
+		std::cout<<"previousPolicy: " + p.getSelectionPolicy()->toString()<<std::endl;
+		std::cout<<"newPolicy: " + newPolicy<<std::endl;
 		complete();
     } 
 	else if(p.getId() == -1 || p.CheckPolicy(newPolicy)){
