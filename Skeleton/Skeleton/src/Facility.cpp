@@ -90,7 +90,7 @@ const FacilityStatus& Facility::getStatus() const {
 
 // String representation of the Facility
 const string Facility::toString() const {
-    return "facilityName: " + name +"\n"+"facilityStatus: " + (status == FacilityStatus::OPERATIONAL ? "Operational" : "Under Construction");
+    return "facilityName: " + name +"\n"+"facilityStatus: " + (status == FacilityStatus::OPERATIONAL ? "OPERATIONAL" : "UNDER_CONSTRUCTION");
 }
 Facility* Facility::clone() {
     return new Facility(*this);

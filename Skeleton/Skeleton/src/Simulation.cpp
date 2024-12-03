@@ -64,7 +64,7 @@ Simulation::Simulation(const string& configFilePath)
             }
         }
     }
-    //configFile.close();
+    configFile.close();
 }
 
 
@@ -209,14 +209,9 @@ void Simulation::addAction(BaseAction* action) {
 
 void Simulation::close() {
 	std::cout << "The simulation has finished" << std::endl;
-    for(BaseAction* BA: actionsLog){
-        delete BA;
-    }
-    for(Settlement* s:settlements){
-        delete s;
-    }
-    delete backup;
 	isRunning = false;
+    //calling for the destructor of Simulation
+    //this->~Simulation();
 }
 void Simulation::step() {
 	for (Plan& p : plans) {
@@ -327,7 +322,7 @@ void Simulation::Restore() {
     } 
 }
 Plan& Simulation::getPlan(int planID) {
-    if (planID == -1) {
+    if (planID >= planCounter || planID<0) {
         return falsePlan;
     }
     return plans[planID];

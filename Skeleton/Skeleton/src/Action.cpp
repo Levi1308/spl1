@@ -13,7 +13,7 @@
 class Simulation;
 //BaseAction Class
 BaseAction::BaseAction()
-:errorMsg(""),status(ActionStatus::ERROR)
+:errorMsg(""),status()
 {}
 
 ActionStatus BaseAction::getStatus() const {
@@ -147,7 +147,7 @@ const string AddFacility::toString() const {
     Close::Close(){}
 
     void Close::act(Simulation& simulation) {
-        const auto& plans = simulation.getPlans();
+        const vector<Plan>& plans = simulation.getPlans();
 
         if (plans.empty()) {
             std::cout << "No plans logged yet." << std::endl;
@@ -297,6 +297,7 @@ BackupSimulation::BackupSimulation() {
 
 void BackupSimulation::act(Simulation& simulation) {
 	simulation.BackUp();
+	complete();
 }
 BackupSimulation* BackupSimulation::clone() const{
 	return new BackupSimulation();
@@ -314,6 +315,7 @@ void RestoreSimulation::act(Simulation& simulation) {
 	}
 	else{
 		simulation.Restore();
+		complete();
 	}
 }
 RestoreSimulation* RestoreSimulation::clone() const {

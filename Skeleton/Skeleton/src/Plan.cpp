@@ -17,7 +17,7 @@ Plan::Plan(const int planId, const Settlement& settlement,
 //Rule of 5
 Plan::Plan(const Plan& other)
     : plan_id(other.plan_id), settlement(other.settlement),
-    selectionPolicy(other.selectionPolicy->clone()),
+    selectionPolicy(other.selectionPolicy != nullptr ? other.selectionPolicy->clone() : nullptr),
     status(other.status),
     facilities(), underConstruction(), facilityOptions(other.facilityOptions),
     life_quality_score(other.life_quality_score),
