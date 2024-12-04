@@ -100,24 +100,28 @@ Simulation::~Simulation(){
     for (Settlement* settlement : settlements) {
         delete settlement;
     }
+    plans.clear();
+    settlements.clear();
+    actionsLog.clear();
+    facilitiesOptions.clear();
 }
 
-
 Simulation& Simulation::operator=(const Simulation& other) {
-    if (this != &other) {
+    if (this != &other) { // Avoid self-assignment
+        // Clean up existing resources
         for (BaseAction* b : actionsLog) {
-            delete b;
+            delete b; // Free memory of actionsLog objects
         }
         actionsLog.clear();
         for (Settlement* s : settlements) {
-            delete s;
+            delete s; // Free memory of settlements objects
         }
         settlements.clear();
         facilitiesOptions.clear();
         isRunning = other.isRunning;
         planCounter = other.planCounter;
         plans = other.plans;
-        for (const auto& F : other.facilitiesOptions) {
+        for (FacilityType F : other.facilitiesOptions) {
             facilitiesOptions.push_back(F);
         }
         for (BaseAction* b : other.actionsLog) {
@@ -129,6 +133,7 @@ Simulation& Simulation::operator=(const Simulation& other) {
     }
     return *this;
 }
+
 
 
 
@@ -161,7 +166,6 @@ void Simulation::addPlan(const Settlement& settlement, SelectionPolicy* selectio
 	Plan p (planCounter,settlement,selectionPolicy,facilitiesOptions);
     plans.push_back(p);
     planCounter++;
-
 }
 
 
@@ -193,6 +197,7 @@ bool Simulation::addFacility(FacilityType facility) {
         if(facilitytype==facility)
 		   return false;
 	}
+
 	facilitiesOptions.push_back(facility);
 	return true;
 }

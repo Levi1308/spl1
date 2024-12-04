@@ -206,21 +206,25 @@ void AddPlan::act(Simulation& simulation) {
 	{
 		Settlement& s=simulation.getSettlement(settlementName);
 		if (selectionPolicy == "nve") {
-			simulation.addPlan(s, new NaiveSelection());
+			SelectionPolicy* selection=new NaiveSelection();
+			simulation.addPlan(s,selection);
 			complete();
 		}
 		else if (selectionPolicy == "bal") {
-			simulation.addPlan(s, new BalancedSelection(0, 0, 0));
+			SelectionPolicy* selection=new BalancedSelection(0, 0, 0);
+			simulation.addPlan(s,selection);
 
 			complete();
 		}
 		else if (selectionPolicy == "eco") {
-			simulation.addPlan(s, new EconomySelection());
+			SelectionPolicy* selection=new EconomySelection();
+			simulation.addPlan(s, selection);
 
 			complete();
 		}
 		else if (selectionPolicy == "env") {
-			simulation.addPlan(s, new SustainabilitySelection());
+			SelectionPolicy* selection=new EconomySelection();
+			simulation.addPlan(s, selection);
 			complete();
 		}
 		else

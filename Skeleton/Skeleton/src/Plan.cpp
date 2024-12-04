@@ -7,7 +7,7 @@
 Plan::Plan(const int planId, const Settlement& settlement,
     SelectionPolicy* selectionPolicy, const std::vector<FacilityType>& facilityOptions)
     : plan_id(planId), settlement(settlement),
-    selectionPolicy(selectionPolicy->clone()),
+    selectionPolicy(selectionPolicy),
     status(PlanStatus::AVALIABLE), 
     facilities(vector<Facility*>()),
     underConstruction(vector<Facility*>()),
@@ -109,7 +109,7 @@ void Plan::printStatus() {
     for (Facility* f : underConstruction) {    
             std::cout << f->toString() << std::endl;  
     }
-}
+};
 
 void Plan::printClose(){
     std::cout << "Plan ID: " + std::to_string(plan_id) <<std::endl;
