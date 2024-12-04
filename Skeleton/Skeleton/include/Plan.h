@@ -16,7 +16,7 @@ class Plan {
         Plan(const Plan& other);
         Plan& operator= (const Plan& other);
         Plan& operator=( Plan&& other) = delete;
-        Plan(Plan&& other) = delete;
+        Plan(Plan&& other) noexcept;
         Plan(int plan_id);
         Plan();
         ~Plan();
@@ -42,7 +42,7 @@ class Plan {
         void setEconomyScore(int addEc);
         void setEnvironmentScore(int addEn);
         void printClose();
-
+        string getSettlementName();
     private:
         int plan_id;
         const Settlement &settlement;

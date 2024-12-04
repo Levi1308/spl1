@@ -71,7 +71,7 @@ Simulation::Simulation(const Simulation& other)
 	: isRunning(other.isRunning),
 	planCounter(other.planCounter),
     actionsLog(),
-	plans(other.plans),
+	plans(),
     settlements(),
     facilitiesOptions(other.facilitiesOptions),  
     falseSettlement("",SettlementType::CITY),
@@ -81,6 +81,11 @@ Simulation::Simulation(const Simulation& other)
 		actionsLog.push_back(b->clone());
 	for (Settlement* s : other.settlements) 
 		settlements.push_back(new Settlement(*s)); 
+    for (Plan plan : other.plans) {
+        Plan temp= Plan(plan.getId(),getSettlement(plan.getSettlementName()),plan.getSelectionPolicy()->clone(),facilitiesOptions);
+        temp=plan;
+        plans.push_back(temp);
+        }
 }
 Simulation::Simulation(Simulation&& other) noexcept
 	: isRunning(other.isRunning),
@@ -116,11 +121,16 @@ Simulation& Simulation::operator=(const Simulation& other) {
         for (Settlement* s : settlements) {
             delete s; // Free memory of settlements objects
         }
+        plans.clear();
         settlements.clear();
         facilitiesOptions.clear();
         isRunning = other.isRunning;
         planCounter = other.planCounter;
-        plans = other.plans;
+        for (Plan plan : other.plans) {
+            Plan temp= Plan(plan.getId(),getSettlement(plan.getSettlementName()),plan.getSelectionPolicy()->clone(),facilitiesOptions);
+            temp=plan;
+            plans.push_back(temp);
+        }
         for (FacilityType F : other.facilitiesOptions) {
             facilitiesOptions.push_back(F);
         }
@@ -346,8 +356,4 @@ void Simulation::setPlanPolicy(int planId, const string& newPolicy){
 		p.setSelectionPolicy(new SustainabilitySelection());
 	}
     plans[planId] = p;
-};
-
-Simulation* Simulation::getBackup(){
-    return backup;
 };

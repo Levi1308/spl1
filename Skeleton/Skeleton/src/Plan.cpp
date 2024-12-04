@@ -30,6 +30,28 @@ Plan::Plan(const Plan& other)
         underConstruction.push_back(f->clone());
     }
 }
+Plan::Plan(Plan&& other) noexcept
+    : plan_id(other.plan_id), 
+      settlement(other.settlement), 
+      selectionPolicy(other.selectionPolicy), 
+      status(other.status), 
+      facilities(std::move(other.facilities)), // Move the vector of facilities
+      underConstruction(std::move(other.underConstruction)), // Move the vector of under-construction facilities
+      facilityOptions(other.facilityOptions), 
+      life_quality_score(other.life_quality_score),
+      economy_score(other.economy_score),
+      environment_score(other.environment_score) {
+
+    // After moving, set the other object to a valid state (avoid dangling references)
+    other.plan_id = 0;
+    other.selectionPolicy = nullptr;
+    other.status = PlanStatus::AVALIABLE;
+    other.facilities.clear();
+    other.underConstruction.clear();
+    other.life_quality_score = 0;
+    other.economy_score = 0;
+    other.environment_score = 0;
+}
 
 Plan::~Plan() {
     delete selectionPolicy;
@@ -256,3 +278,6 @@ void Plan::setEconomyScore(int addEc) {
 void Plan::setEnvironmentScore(int addEn) {
     environment_score = environment_score + addEn;
 }
+string Plan::getSettlementName(){
+    return settlement.getName();
+};
