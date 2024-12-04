@@ -357,3 +357,7 @@ void Simulation::setPlanPolicy(int planId, const string& newPolicy){
 	}
     plans[planId] = p;
 };
+
+Simulation* Simulation::getBackup(){
+    return backup;
+}

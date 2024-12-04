@@ -193,6 +193,7 @@ void Plan::setSelectionPolicy(SelectionPolicy* newSelectionPolicy) {
         delete selectionPolicy;
     }
     selectionPolicy = newSelectionPolicy->clone();
+    delete newSelectionPolicy;
 }
 
 void Plan::addFacility(Facility* facility) {
